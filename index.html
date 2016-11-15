@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>javascript inViewport</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <link rel="stylesheet" href="stylesheets/viewport_test.css">
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="backDetect is a jQuery plugin to determine when a user clicks the back button and fire a callback function." />
+    <script src="javascripts/scale.fix.js"></script>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>inViewport</h1>
+        <p>A light weight, pure javascript plugin used to determine whether an element is in the viewport. Optional parameters for a user to specify the minimum percentage of the element's dimensions exposed within the viewport.  Bases off of <a href="https://github.com/moagrius/isOnScreen" target="_blank">jQuery.isOncreen</a> plugin.</p> 
+        <p class="view"><a href="https://github.com/ianrogren/javascript-inViewport">View the Project on GitHub <small>ianrogren/javascript-inViewport</small></a></p>
+        <ul>
+          <li><a href="https://github.com/ianrogren/javascript-inViewport/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ianrogren/javascript-inViewport/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ianrogren/javascript-inViewport">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>
+          <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using inViewport
+        </h3>
+        <p>Can append to any element or class:</p>
+        <pre>
+
+  var selector_A = document.querySelector('#selector-A');
+  selector_A.inViewport(175, 175, 'pixel');
+
+  var selector_B = document.querySelector('#selector-B');
+  selector_B.inViewport(0.5, 0.5);  
+        </pre>
+        <br/>
+        <h3>inViewport Example</h3>
+        <p>Scroll down to test.  Both selector elements in the example below are 200 pixels by 200 pixels.</p>
+        <div id="test-container">
+          <div id="selector-A"></div>
+          <div id="selector-B"></div>
+          <div id="selector-A-line">
+            Selector A visiblity: <span id="selector-A-visibility" class="result">False</span><br/>
+            <small>Should show at least 175px of element.</small>
+          </div>
+          <div id="selector-B-line">
+            Selector B visiblity: <span id="selector-B-visibility" class="result">False</span><br/>
+            <small>Should show 50% of element (100px).</small>
+          </div>
+          </div>
+        </div>  
+      </section>
+    </div>
+    <script type="text/javascript" src="inviewport.js"></script>
+    <script type="text/javascript" src="javascripts/viewport_test.js"></script>
+  </body>
+</html>
