@@ -1,7 +1,9 @@
 inViewport
 ---
 
-A light weight, pure javascript plugin used to determine whether an element is in the viewport. Optional parameters for a user to specify the minimum percentage of the element's dimensions exposed within the viewport.  Bases off of <a href="https://github.com/moagrius/isOnScreen" target="_blank">jQuery.isOncreen</a> plugin.
+A light weight, pure javascript plugin used to determine whether an element is in the viewport. Optional parameters for a user to specify the either the minimum number of pixels exposed or minimum percentage of the element's dimensions exposed within the viewport.  Based off of the <a href="https://github.com/moagrius/isOnScreen" target="_blank">jQuery.isOncreen</a> plugin with the ability to switch from percentage to pixels.
+
+See the inViewport.js in action <a href="index.html">here</a>.
 
 ### Browser Support
 

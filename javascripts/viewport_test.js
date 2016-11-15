@@ -8,8 +8,6 @@ viewportTest.init = function () {
 			selector_B_result = document.querySelector('#selector-B-visibility'),
 			did_scroll 				= false;
 
-			console.log(selector_A);
-
 			window.addEventListener('scroll', function(event){
 				did_scroll = true;
 			}, false);
