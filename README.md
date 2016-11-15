@@ -23,7 +23,7 @@ Can append to any element or class:
 	var selector_A = document.querySelector('#selector-A');
 	selector_A.inViewport(0.5, 0.5);
 
-	// Check element in viewport by percentage
+	// Check element in viewport by pixel count
 	// 150px horizontally and 175px vertically before firing
 	var selector_B = document.querySelector('#selector-B');
 	selector_B.inViewport(150, 175, 'pixel');	
