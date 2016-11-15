@@ -5,6 +5,12 @@ A light weight, pure javascript plugin used to determine whether an element is i
 
 See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-inViewport/">here</a>.
 
+### Installation
+---
+- Download the latest release from here (or `npm install jquery-backdetect` or `bower install jquery-backdetect`).
+- Copy either `inviewport.js` or `inviewport.min.js` to your scripts folder.
+- That's it!
+
 ### Browser Support
 
 | <img src="http://i.imgur.com/dJC1GUv.png" width="48px" height="48px" alt="Chrome logo"> | <img src="http://i.imgur.com/o1m5RcQ.png" width="48px" height="48px" alt="Firefox logo"> | <img src="http://i.imgur.com/8h3iz5H.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="http://i.imgur.com/j3tgNKJ.png" width="48px" height="48px" alt="Safari logo"> |
