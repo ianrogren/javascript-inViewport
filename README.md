@@ -20,6 +20,7 @@ See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-i
 | --- | --- | --- | --- | --- |
 | All ✔ | All ✔ | All ✔ | All ✔ |
 
+
 ### Basic Usage
 
 You can append to any element or class:
@@ -37,6 +38,7 @@ You can append to any element or class:
   selectorB.inViewport(150, 175, 'pixel');
 ```
 
+
 ### Custom Options
 
 | Settings | Required | Default Value | Description
@@ -44,6 +46,7 @@ You can append to any element or class:
 | x | Required | <pre>null</pre> |  The minimum horizontal value that must be exposed before returning true.  
 | y | Required | <pre>null</pre> |  The minimum vertical value that must be exposed before returning true. 
 | percentage/pixel | Optional | <pre>percentage</pre> | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed.  By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100%.  To switch over to pixels, use "pixel" as the third argument.
+
 
 ### Example Setup
 
@@ -89,19 +92,20 @@ You can append to any element or class:
 
 ### Licence 
 ```
+
 		                    __
-		            _,..,_ (, )
-		         .,'      `,./
-		       .' :`.----.': `,
-		      :   : ^    ^ :   ;
-		     :   :  6    6  :   ;
-		     :   :          :   ;
-		     :   :    __    :   ;
-< MIT >       :   `:'.--.`:'   ;
-		       `.  : o  o :  .'
-		        :   `----'   :  
-		        : .  :'`:  . :
-		        `.:.'    `.:.' 
+                    _,..,_ (, )
+                 .,'      `,./
+               .' :`.----.': `,
+              :   : ^    ^ :   ;
+             :   :  6    6  :   ;
+             :   :          :   ;
+             :   :    __    :   ;
+    < MIT >   :   `:'.--.`:'   ;
+               `.  : o  o :  .'
+                :   `----'   :  
+                : .  :'`:  . :
+                `.:.'    `.:.' 
 ```
 
 

@@ -34,58 +34,56 @@
           <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using inViewport
         </h3>
         <p>You can append the inViewport function to any element:</p>
-        <pre>
+<div class="highlight highlight-source-js"><pre>  <span class="pl-c"><span class="pl-c">//</span> Check element in viewport by percentage</span>
+  <span class="pl-c"><span class="pl-c">//</span> 50% horizontally and 50% vertically before firing</span>
+  <span class="pl-k">var</span> selectorA <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selectorA<span class="pl-pds">'</span></span>);
+  <span class="pl-smi">selectorA</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>);
 
-  var selectorA = document.getElementById('selector-A');
-  selectorA.inViewport(175, 175, 'pixel');
-
-  var selectorB = document.getElementById('selector-B');
-  selectorB.inViewport(0.5, 0.5);  
-        </pre>
+  <span class="pl-c"><span class="pl-c">//</span> Check element in viewport by pixel count</span>
+  <span class="pl-c"><span class="pl-c">//</span> 150px horizontally and 175px vertically before firing</span>
+  <span class="pl-k">var</span> selectorB <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-B<span class="pl-pds">'</span></span>);
+  <span class="pl-smi">selectorB</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">150</span>, <span class="pl-c1">175</span>, <span class="pl-s"><span class="pl-pds">'</span>pixel<span class="pl-pds">'</span></span>);</pre></div>
         <br/>
         <h3>inViewport Example Setup</h3>
         <p>In order to continually check if something is on screen, you'll want to use this script with a scroll event. Here's an example of how to use the you would be able to achieve this.  To actually see it in action, please scroll down.</p>
-        <div class="highlight highlight-text-html-basic">
-          <pre>
+        
+        <div class="highlight highlight-source-js"><pre>  <span class="pl-k">var</span> selectorA <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-A<span class="pl-pds">'</span></span>);
+  <span class="pl-k">var</span> selectorAResult <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-A-visibility<span class="pl-pds">'</span></span>);
+  <span class="pl-k">var</span> selectorB <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-B<span class="pl-pds">'</span></span>);
+  <span class="pl-k">var</span> selectorBResult <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-B-visibility<span class="pl-pds">'</span></span>);
+  <span class="pl-k">var</span> scrolling <span class="pl-k">=</span> <span class="pl-c1">false</span>;
 
-  var selectorA = document.getElementById('selector-A');
-  var selectorAResult = document.getElementById('selector-A-visibility');
-  var selectorB = document.getElementById('selector-B');
-  var selectorBResult = document.getElementById('selector-B-visibility');
-  var scrolling = false;
-
-  // Check if elements are in the viewport.
-  function checkView() {
-    if (selector_A.inViewport(175, 175, 'pixel')) {
-      selectorA.classList.add('visible');
-      selectorAResult.innerHTML = 'True';
-    } else {
-      selectorA.classList.remove('visible');
-      selectorAResult.innerHTML = 'False';
+  <span class="pl-c"><span class="pl-c">//</span> Check if elements are in the viewport.</span>
+  <span class="pl-k">function</span> <span class="pl-en">checkView</span>() {
+    <span class="pl-k">if</span> (<span class="pl-smi">selector_A</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">175</span>, <span class="pl-c1">175</span>, <span class="pl-s"><span class="pl-pds">'</span>pixel<span class="pl-pds">'</span></span>)) {
+      <span class="pl-smi">selectorA</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
+      <span class="pl-smi">selectorAResult</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>True<span class="pl-pds">'</span></span>;
+    } <span class="pl-k">else</span> {
+      <span class="pl-smi">selectorA</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">remove</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
+      <span class="pl-smi">selectorAResult</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>False<span class="pl-pds">'</span></span>;
     }
-    if (selectorB.inViewport(0.5, 0.5)) {
-      selectorB.classList.add('visible');
-      selectorBResult.innerHTML = 'True';
-    } else {
-      selectorB.classList.remove('visible');
-      selectorBResult.innerHTML = 'False';
+    <span class="pl-k">if</span> (<span class="pl-smi">selectorB</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>)) {
+      <span class="pl-smi">selectorB</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
+      <span class="pl-smi">selectorBResult</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>True<span class="pl-pds">'</span></span>;
+    } <span class="pl-k">else</span> {
+      <span class="pl-smi">selectorB</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">remove</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
+      <span class="pl-smi">selectorBResult</span>.<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>False<span class="pl-pds">'</span></span>;
     }
   }
 
-  // Detect if user is scrolling.
-  window.addEventListener('scroll', function scrollEvent() {
-    scrolling = true;
-  }, false);
+  <span class="pl-c"><span class="pl-c">//</span> Detect if user is scrolling.</span>
+  <span class="pl-c1">window</span>.<span class="pl-c1">addEventListener</span>(<span class="pl-s"><span class="pl-pds">'</span>scroll<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> <span class="pl-en">scrollEvent</span>() {
+    scrolling <span class="pl-k">=</span> <span class="pl-c1">true</span>;
+  }, <span class="pl-c1">false</span>);
 
-  // Check the view if scrolling every 20 miliseconds.
-  setInterval(function checkScroll() {
-    if (scrolling === true) {
-      checkView();
-      scrolling = false;
+  <span class="pl-c"><span class="pl-c">//</span> Check the view if scrolling every 20 miliseconds.</span>
+  <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span> <span class="pl-en">checkScroll</span>() {
+    <span class="pl-k">if</span> (scrolling <span class="pl-k">===</span> <span class="pl-c1">true</span>) {
+      <span class="pl-en">checkView</span>();
+      scrolling <span class="pl-k">=</span> <span class="pl-c1">false</span>;
     }
-  }, 20);
-          </pre>
-        </div>
+  }, <span class="pl-c1">20</span>);</pre></div>
+
         <br/>
         <h3>inViewport Example</h3>
         <p>Scroll down to test.  Both selector elements in the example below are 200 pixels by 200 pixels.</p>
