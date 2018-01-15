@@ -11,7 +11,7 @@
     "viewport",
     "js",
     "plugin",
-    "javascript",
+    "javascript"
   ],
   "homepage": "https://github.com/ianrogren/javascript-inViewport",
   "ignore": [
