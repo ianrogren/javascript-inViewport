@@ -54,26 +54,28 @@ You can append to any element or class:
 ``` javascript
 
   var selectorA = document.getElementById('selector-A');
-  var selectorAResult = document.getElementById('selector-A-visibility');
   var selectorB = document.getElementById('selector-B');
-  var selectorBResult = document.getElementById('selector-B-visibility');
   var scrolling = false;
 
   // Check if elements are in the viewport.
   function checkView() {
-    if (selector_A.inViewport(175, 175, 'pixel')) {
+    if (selectorA.inViewport(175, 175, 'pixel')) {
+      // Add 'visible' class when more then 175 pixels of 
+      // selectorA are visible vertically and horizontally.
       selectorA.classList.add('visible');
-      selectorAResult.innerHTML = 'True';
     } else {
+      // Remove 'visible' class from selectorA when less than
+      // 175 pixels are in viewport verticlaly and horizontally.
       selectorA.classList.remove('visible');
-      selectorAResult.innerHTML = 'False';
     }
     if (selectorB.inViewport(0.5, 0.5)) {
+      // Add 'visible' class when more then 50% of selectorB is 
+      // visible vertically and horizontally.
       selectorB.classList.add('visible');
-      selectorBResult.innerHTML = 'True';
     } else {
+      // Remove 'visible' class when less than 50% of
+      // selectorB is in viewport verticlaly and horizontally.
       selectorB.classList.remove('visible');
-      selectorBResult.innerHTML = 'False';
     }
   }
 
@@ -94,19 +96,19 @@ You can append to any element or class:
 ### Licence 
 ```
 
-                            __
-                    _,..,_ (, )
-                 .,'      `,./
-               .' :`.----.': `,
-              :   : ^    ^ :   ;
-             :   :  6    6  :   ;
-             :   :          :   ;
-             :   :    __    :   ;
-    < MIT >   :   `:'.--.`:'   ;
-               `.  : o  o :  .'
-                :   `----'   :  
-                : .  :'`:  . :
-                `.:.'    `.:.' 
+                        __
+                _,..,_ (, )
+             .,'      `,./
+           .' :`.----.': `,
+          :   : ^    ^ :   ;
+         :   :  6    6  :   ;
+         :   :          :   ;
+         :   :    __    :   ;
+< MIT >   :   `:'.--.`:'   ;
+           `.  : o  o :  .'
+            :   `----'   :  
+            : .  :'`:  . :
+            `.:.'    `.:.' 
 ```
 
 
