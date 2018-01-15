@@ -10,7 +10,7 @@ See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-i
 
 ### Installation
 ---
-- Download the latest release from here (or `npm install jquery-backdetect` or `bower install jquery-backdetect`).
+- Download the latest release from here (or `npm install javascript-inviewport` or `bower install javascript-inviewport`).
 - Copy either `inviewport.js` or `inviewport.min.js` to your scripts folder.
 - That's it!
 

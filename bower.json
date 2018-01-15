@@ -1,6 +1,6 @@
 {
   "name": "javascript-inviewport",
-  "description": "A light weight, pure javascript plugin used to determine whether an element is in the viewport.",
+  "description": "A simple, light weight, pure javascript plugin used to determine whether an element is in the viewport.",
   "main": "inviewport.js",
   "authors": [
     "Ian Rogren"
@@ -10,11 +10,8 @@
     "inviewport",
     "viewport",
     "js",
-    "viewport",
     "plugin",
     "javascript",
-    "viewport",
-    "javascript"
   ],
   "homepage": "https://github.com/ianrogren/javascript-inViewport",
   "ignore": [
