@@ -16,10 +16,13 @@ See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-i
 
 ### Browser Support
 
-| <img src="http://i.imgur.com/dJC1GUv.png" width="48px" height="48px" alt="Chrome logo"> | <img src="http://i.imgur.com/o1m5RcQ.png" width="48px" height="48px" alt="Firefox logo"> | <img src="http://i.imgur.com/8h3iz5H.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="http://i.imgur.com/j3tgNKJ.png" width="48px" height="48px" alt="Safari logo"> |
+| <img src="http://i.imgur.com/dJC1GUv.png" width="48px" height="48px" alt="Chrome logo"> | <img src="http://i.imgur.com/o1m5RcQ.png" width="48px" height="48px" alt="Firefox logo"> | <img src="http://i.imgur.com/8h3iz5H.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="http://i.imgur.com/j3tgNKJ.png" width="48px" height="48px" alt="Safari logo">
 | --- | --- | --- | --- | --- |
-| All ✔ | All ✔ | All ✔ | All ✔ |
+| All ✔ | All ✔ | All ✔ | All ✔
 
+| Chrome | Firefox | Internet Explorer | Safari |
+| --- | --- | --- | --- |
+| All ✔ | All ✔ | All ✔ | All ✔ |
 
 ### Basic Usage
 
@@ -41,11 +44,11 @@ You can append to any element or class:
 
 ### Custom Options
 
-| Settings | Required | Default Value | Description
+| Settings | Required | Default Value | Description |
 | --- | --- | --- | --- |
-| x | Required | <pre>null</pre> |  The minimum horizontal value that must be exposed before returning true.  
-| y | Required | <pre>null</pre> |  The minimum vertical value that must be exposed before returning true. 
-| percentage/pixel | Optional | <pre>percentage</pre> | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed.  By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100%.  To switch over to pixels, use "pixel" as the third argument.
+| x | Required | <pre>null</pre> |  The minimum horizontal value that must be exposed before returning true. |
+| y | Required | <pre>null</pre> |  The minimum vertical value that must be exposed before returning true. |
+| percentage/pixel | Optional | <pre>percentage</pre> | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed.  By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100%.  To switch over to pixels, use "pixel" as the third argument. |
 
 
 ### Example Setup
@@ -93,7 +96,7 @@ You can append to any element or class:
 ### Licence 
 ```
 
-		                    __
+                            __
                     _,..,_ (, )
                  .,'      `,./
                .' :`.----.': `,
