@@ -1,16 +1,49 @@
 /* eslint-env es5 */
 /* eslint no-undef: 0 */
 /* eslint no-var: 0 */
+/* eslint prefer-arrow-callback: 0 */
 
 var viewportExample = {};
-viewportExample.init = function viewportExample() {
-  var selector_A = document.getElementById('selector-A');
-  var selector_A_result = document.getElementById('selector-A-visibility');
-  var selector_B = document.getElementById('selector-B');
-  var selector_B_result = document.getElementById('selector-B-visibility');
+viewportExample.init = function viewportBuildExample() {
+  var selectorA = document.getElementById('selector-A');
+  var selectorALine = document.getElementById('selector-A-line');
+  var selectorAResult = document.getElementById('selector-A-visibility');
+  var selectorB = document.getElementById('selector-B');
+  var selectorBLine = document.getElementById('selector-B-line');
+  var selectorBResult = document.getElementById('selector-B-visibility');
+  var testContainer = document.getElementById('test-container');
   var scrolling = false;
 
-  window.addEventListener('scroll', function() {
+  function checkView() {
+    // Selector A
+    if (selectorA.inViewport(175, 175, 'pixel')) {
+      selectorA.classList.add('visible');
+      selectorAResult.innerHTML = 'True';
+    } else {
+      selectorA.classList.remove('visible');
+      selectorAResult.innerHTML = 'False';
+    }
+
+    // Selector B
+    if (selectorB.inViewport(0.5, 0.5)) {
+      selectorB.classList.add('visible');
+      selectorBResult.innerHTML = 'True';
+    } else {
+      selectorB.classList.remove('visible');
+      selectorBResult.innerHTML = 'False';
+    }
+
+    // Test Lines
+    if (testContainer.inViewport(200, 200, 'pixel')) {
+      selectorALine.classList.add('show');
+      selectorBLine.classList.add('show');
+    } else {
+      selectorALine.classList.remove('show');
+      selectorBLine.classList.remove('show');
+    }
+  }
+
+  window.addEventListener('scroll', function () {
     scrolling = true;
   }, false);
 
@@ -20,27 +53,6 @@ viewportExample.init = function viewportExample() {
       scrolling = false;
     }
   }, 20);
+};
 
-  function checkView() {
-    if (selector_A.inViewport(175, 175, 'pixel')) {
-      selector_A.classList.add('visible');
-      selector_A_result.innerHTML = 'True';
-    } else {
-      selector_A.classList.remove('visible');
-      selector_A_result.innerHTML = 'False';
-    }
-    if (selector_B.inViewport(0.5, 0.5)) {
-      selector_B.classList.add('visible');
-      selector_B_result.innerHTML = 'True';
-    } else {
-      selector_B.classList.remove('visible');
-      selector_B_result.innerHTML = 'False';
-    }
-  }
-}
-
-(function viewportStartExample() {
-  'use strict';
-
-  viewportExample.init();
-})();
+viewportExample.init();

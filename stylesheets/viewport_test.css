@@ -39,7 +39,11 @@
 	width: 100vw;
 	border-bottom: solid 2px #f39c12;
 	padding: 0px 20px;
+	opacity: 0;
+	transform: translate3d(0, 20px, 0);
+	transition: 300ms ease 150ms;
 }
+
 
 #selector-B-line {
 	left: 0;
@@ -48,5 +52,22 @@
 	width: 100vw;
 	border-bottom: solid 2px #2980b9;
 	padding: 0px 20px;
+	opacity: 0;
+	transform: translate3d(0, 20px, 0);
+	transition: 300ms ease;
+}
+
+#selector-A-line.show, #selector-B-line.show {
+	opacity: 1;
+	transform: translate3d(0, 0, 0);
+	
+}
+
+#selector-A-line.show {
+	transition: 500ms ease;
+}
+
+#selector-B-line.show {
+	transition: 500ms ease 150ms;
 }
 
