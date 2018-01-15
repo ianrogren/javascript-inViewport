@@ -14,16 +14,17 @@
     "inviewport",
     "viewport",
     "js",
-    "viewport",
-    "plugin",
     "javascript",
-    "viewport",
-    "javascript"
   ],
   "author": "Ian Rogren",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ianrogren/javascript-inViewport/issues"
   },
-  "homepage": "https://github.com/ianrogren/javascript-inViewport#readme"
+  "homepage": "https://github.com/ianrogren/javascript-inViewport#readme",
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+  }
 }

@@ -1,79 +1,174 @@
-Object.prototype.inViewport = function (x, y, percentage) {
-	if(x === null || typeof x === 'undefined') x = 1;
-  if(y === null || typeof y === 'undefined') y = 1;
-  if(percentage === null || typeof percentage === 'undefined') percentage = true;
- 
+/* eslint-env es5 */
+/* eslint no-undef: 0 */
+/* eslint no-var: 0 */
+/* eslint no-console: 0 */
+/* eslint no-extend-native: ["error", { "exceptions": ["Object"] }] */
+
+Object.prototype.inViewport = function inViewport(xValue, yValue, measurementType) {
   var win = typeof window !== 'undefined' && window;
+  var x = xValue;
+  var y = yValue;
+  var measurement = 'pixel';
+  var scrolling = false;
 
   var viewport = {
-  	top: win.pageYOffset,
-  	left: win.pageXOffset,
-  	bottom: win.pageYOffset + win.innerHeight,
-  	right: win.pageXOffset + win.innerWidth
+    top: win.pageYOffset,
+    left: win.pageXOffset,
+    bottom: win.pageYOffset + win.innerHeight,
+    right: win.pageXOffset + win.innerWidth,
   };
 
-  var bounds 							  = this.getBoundingClientRect(),
-  		top_visible 				  = bounds.top >= 0 && bounds.top < win.innerHeight,
-  		bottom_visible 			  = bounds.bottom > 0 && bounds.bottom <= win.innerHeight,
-  		left_visible				  = bounds.left >= 0 && bounds.left < win.innerWidth,
-  		right_visible				  = bounds.right > 0 && bounds.right <= win.innerWidth,
-  		vertical_showing 		  = 0,
-      vertical_percentage   = 0,
-  		horizontal_showing 	  = 0,
-      horizontal_percentage = 0,
-      y_pos                 = win.pageYOffset + bounds.top,
-      x_pos                 = win.pageXOffset + bounds.left;
+  var bounds = this.getBoundingClientRect();
+  var topVisible = bounds.top >= 0 && bounds.top < win.innerHeight;
+  var bottomVisible = bounds.bottom > 0 && bounds.bottom <= win.innerHeight;
+  var leftVisible = bounds.left >= 0 && bounds.left < win.innerWidth;
+  var rightVisible = bounds.right > 0 && bounds.right <= win.innerWidth;
 
 
-  // Get the percentage of the element showing vertically
-  if (top_visible === true && bottom_visible === false) {
-  	vertical_showing = Math.abs(bounds.top - win.innerHeight);
-    vertical_percentage = Math.abs((bounds.top - win.innerHeight)/bounds.height);
-  } else if (top_visible === false && bottom_visible === true) {
-  	vertical_showing = bounds.bottom;
-    vertical_percentage = Math.abs(bounds.bottom/bounds.height);
-  } else if (top_visible === true && bottom_visible === true) {
-  	vertical_showing = y;
-    vertical_percentage = 1;
+  /**
+   * Variable Validate
+   *
+   * @param int xInput
+   * @param int yInput
+   * @param string measurementInput
+   *
+   * @return boolean
+   */
+  function variableValidate(xInput, yInput, measurementInput) {
+    var validVariables = true;
 
-  }
+    if (x === null || typeof x === 'undefined') {
+      validVariables = false;
+      console.warn('inViewport.js: missing x-axis viewport edge value.' +
+        '\nPlease see valid variable inputs at https://github.com/ianrogren/javascript-inViewport');
+    }
 
-  // Get the percentage of the element showing horizontally
-  if (right_visible === true && left_visible === false) {
-  	horizontal_showing = bounds.right;
-    horizontal_percentage = Math.abs(bounds.right/bounds.width);
-  } else if (right_visible === false && left_visible === true) {
-  	horizontal_showing = Math.abs(viewport.right-bounds.left);
-    horizontal_percentage = Math.abs((viewport.right-bounds.left)/bounds.width);
-  } else if (right_visible === true && left_visible === true) {
-  	horizontal_showing = x;
-    horizontal_percentage = 1;
-  }
+    if (y === null || typeof y === 'undefined') {
+      validVariables = false;
+      console.warn('inViewport.js: missing x-axis viewport edge value.' +
+        '\nPlease see valid variable inputs at https://github.com/ianrogren/javascript-inViewport');
+    }
 
+    if (measurementInput === null ||
+      typeof measurementInput === 'undefined' ||
+      measurementInput === 'percentage') {
+      measurement = 'percentage';
+    } else if (measurementInput === 'pixel') {
+      measurement = 'pixel';
+    } else {
+      measurement = 'percentage';
+      console.warn('inViewport.js: invalid measurement setting.  Defaulting to percentage.' +
+        '\nPlease see valid variable inputs at https://github.com/ianrogren/javascript-inViewport');
+    }
 
-  // Check to see if the element is in the viewport but 
-  // the height takes up the whole screen
-  if(y_pos <= viewport.top && viewport.bottom <= (y_pos + bounds.height)) {
+    if (!validVariables) {
+      return false;
+    }
     return true;
   }
 
-  // Check to see if the element is in the viewport but 
-  // the width takes up the whole screen
-  if(x_pos <= viewport.left && viewport.right <= (x_pos + bounds.width)) {
-    return true;
-  }
 
-  // Check to see if element should be calculated by 
-  // percentage exposed or number of pixels exposed
-  if(percentage == 'pixel') {
-    if(vertical_showing >= y && horizontal_showing >= x) {
+  /**
+   * Vertical Visibility
+   *
+   * @param array elementBounds
+   * @param boolean topBounds
+   * @param boolean bottomBounds
+   * @param string view
+   *
+   * @return boolean
+   */
+  function verticalVisibility(elementBounds, topBounds, bottomBounds, view) {
+    var yPosition = win.pageYOffset + elementBounds.top;
+    var verticalShowing = 0;
+    var verticalPercentage = 0;
+
+    if (topBounds === true && bottomBounds === false) {
+      verticalShowing = Math.abs(elementBounds.top - win.innerHeight);
+      verticalPercentage = Math.abs((elementBounds.top - win.innerHeight) / elementBounds.height);
+    } else if (topBounds === false && bottomBounds === true) {
+      verticalShowing = elementBounds.bottom;
+      verticalPercentage = Math.abs(elementBounds.bottom / elementBounds.height);
+    } else if (topBounds === true && bottomBounds === true) {
       return true;
     }
-  } else {
-  	if(vertical_percentage >= y && horizontal_percentage >= x) {
-  		return true;
-  	}
-  }
-};
 
+    // Check to see if the element is in the viewport but
+    // the height takes up the whole screen
+    if (yPosition <= view.top && view.bottom <= (yPosition + bounds.height)) {
+      return true;
+    }
+
+    if ((verticalPercentage >= y && measurement === 'percentage') ||
+      (verticalShowing >= y && measurement === 'pixel')) {
+      return true;
+    }
+    return false;
+  }
+
+
+  /**
+   * Horizontal Visibility
+   *
+   * @param array elementBounds
+   * @param boolean rightBounds
+   * @param boolean leftBounds
+   * @param string view
+   *
+   * @return boolean
+   */
+  function horizontalVisibility(elementBounds, rightBounds, leftBounds, view) {
+    var xPosition = win.pageXOffset + elementBounds.left;
+    var horizontalShowing = 0;
+    var horizontalPercentage = 0;
+
+    // Get the percentage of the element showing horizontally
+    if (rightVisible === true && leftVisible === false) {
+      horizontalShowing = elementBounds.right;
+      horizontalPercentage = Math.abs(elementBounds.right / elementBounds.width);
+    } else if (rightVisible === false && leftVisible === true) {
+      horizontalShowing = Math.abs(viewport.right - elementBounds.left);
+      horizontalPercentage = Math.abs((viewport.right - elementBounds.left) / elementBounds.width);
+    } else if (rightVisible === true && leftVisible === true) {
+      horizontalShowing = x;
+      horizontalPercentage = 1;
+    }
+
+    // Check to see if the element is in the viewport but
+    // the width takes up the whole screen
+    if (xPosition <= view.left && view.right <= (xPosition + elementBounds.width)) {
+      return true;
+    }
+
+    if ((horizontalPercentage >= y && measurement === 'percentage') ||
+      (horizontalShowing >= y && measurement === 'pixel')) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Check in View
+   */
+  function checkInView() {
+    // Validate input variables
+    if (variableValidate(xValue, yValue, measurementType) === false) {
+      return false;
+    }
+
+    // Check horizontal visibility
+    if (horizontalVisibility(bounds, rightVisible, leftVisible, viewport) === false) {
+      return false;
+    }
+
+    // Chceck vertical visibility
+    if (verticalVisibility(bounds, topVisible, bottomVisible, viewport) === false) {
+      return false;
+    }
+
+    return true;
+  }
+
+  return checkInView();
+};
 
