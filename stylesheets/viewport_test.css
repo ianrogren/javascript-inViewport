@@ -64,10 +64,20 @@
 }
 
 #selector-A-line.show {
-	transition: 500ms ease;
+	transition: 300ms ease 300ms;
 }
 
 #selector-B-line.show {
-	transition: 500ms ease 150ms;
+	transition: 300ms ease 550ms;
+}
+
+header {
+	opacity: 1;
+	transition: 300ms ease 500ms;
+}
+
+header.hide{
+	opacity: 0;
+	transition: 150ms ease 0ms;
 }
 

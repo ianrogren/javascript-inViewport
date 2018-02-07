@@ -60,21 +60,13 @@ You can append to any element or class:
   // Check if elements are in the viewport.
   function checkView() {
     if (selectorA.inViewport(175, 175, 'pixel')) {
-      // Add 'visible' class when more then 175 pixels of 
-      // selectorA are visible vertically and horizontally.
       selectorA.classList.add('visible');
     } else {
-      // Remove 'visible' class from selectorA when less than
-      // 175 pixels are in viewport verticlaly and horizontally.
       selectorA.classList.remove('visible');
     }
     if (selectorB.inViewport(0.5, 0.5)) {
-      // Add 'visible' class when more then 50% of selectorB is 
-      // visible vertically and horizontally.
       selectorB.classList.add('visible');
     } else {
-      // Remove 'visible' class when less than 50% of
-      // selectorB is in viewport verticlaly and horizontally.
       selectorB.classList.remove('visible');
     }
   }
@@ -86,7 +78,7 @@ You can append to any element or class:
 
   // Check the view if scrolling every 20 miliseconds.
   setInterval(function checkScroll() {
-    if (scrolling === true) {
+    if (scrolling) {
       checkView();
       scrolling = false;
     }

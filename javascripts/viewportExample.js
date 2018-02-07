@@ -12,6 +12,7 @@ viewportExample.init = function viewportBuildExample() {
   var selectorBLine = document.getElementById('selector-B-line');
   var selectorBResult = document.getElementById('selector-B-visibility');
   var testContainer = document.getElementById('test-container');
+  var header = document.getElementsByTagName('header');
   var scrolling = false;
 
   function checkView() {
@@ -37,9 +38,11 @@ viewportExample.init = function viewportBuildExample() {
     if (testContainer.inViewport(200, 200, 'pixel')) {
       selectorALine.classList.add('show');
       selectorBLine.classList.add('show');
+      header[0].classList.add('hide');
     } else {
       selectorALine.classList.remove('show');
       selectorBLine.classList.remove('show');
+      header[0].classList.remove('hide');
     }
   }
 
@@ -48,7 +51,7 @@ viewportExample.init = function viewportBuildExample() {
   }, false);
 
   setInterval(function checkScroll() {
-    if (scrolling === true) {
+    if (scrolling) {
       checkView();
       scrolling = false;
     }
