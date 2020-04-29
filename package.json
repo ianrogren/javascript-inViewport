@@ -4,7 +4,10 @@
   "description": "A simple, light weight, pure javascript plugin used to determine whether an element is in the viewport.",
   "main": "inviewport.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx babel ./source/inviewport.js --out-file ./inviewport.js --source-maps",
+    "build:minify": "npx babel ./source/inviewport.js --out-file ./inviewport.min.js --source-maps",
+    "prettier": "npx prettier --write source/inviewport.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +26,12 @@
   },
   "homepage": "https://github.com/ianrogren/javascript-inViewport#readme",
   "devDependencies": {
-    "eslint": "^4.15.0",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "eslint-plugin-import": "^2.8.0",
+    "prettier": "^2.0.5"
   }
 }
