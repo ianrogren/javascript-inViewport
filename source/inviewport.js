@@ -226,38 +226,9 @@ Object.prototype.inViewport = function inViewport(
     }
 
     objectVisible =
-      measurementDirection === 'height'
-        ? verticalCheck(boundaries)
-        : horizontalCheck(boundaries);
+      measurementDirection === 'height' ? verticalCheck() : horizontalCheck();
 
     return objectVisible;
-
-    // if (visible[sideA] && !visible[sideB]) {
-    //   pixelVisible = Math.abs(viewport[sideA] - bounds[sideB]);
-    //   percentVisible = Math.abs(
-    //     (bounds[sideA] - window.innerHeight) / bounds[measurementDirection]
-    //   );
-    // } else if (!visible[sideA] && visible[sideB]) {
-    //   pixelVisible = bounds[sideB];
-    //   percentVisible = Math.abs(bounds[sideB] / bounds.height);
-    // }
-
-    // const pixelVisible =
-    //   visible[sideA] && !visible[sideB]
-    //     ? bounds[sideA]
-    //     : Math.abs(viewport[sideA] - bounds[sideB]);
-
-    // const percentageVisible =
-    //   visible[sideA] && !visible[sideB]
-    //     ? Math.abs(bounds[sideA] / bounds.width)
-    //     : Math.abs((viewport.right - bounds[sideB]) / bounds.width);
-
-    // console.log('pixel visible', pixelVisible);
-    // console.log('window position', windowPosition);
-
-    // const elementVisible = type === 'pixel' ? pixelVisible : percentageVisible;
-
-    // return elementVisible >= windowPosition;
   };
 
   /**
