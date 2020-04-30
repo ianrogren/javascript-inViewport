@@ -44,113 +44,6 @@ Object.prototype.inViewport = function inViewport(
   };
 
   /**
-   * Vertical Visibility
-   *
-   * @param array elementBounds
-   * @param boolean topBounds
-   * @param boolean bottomBounds
-   * @param string view
-   *
-   * @return boolean
-   */
-  const verticalVisibility = (topBounds, bottomBounds, view) => {
-    const yPosition = window.pageYOffset + bounds.top;
-    let verticalShowing = 0;
-    let verticalPercentage = 0;
-
-    /**
-     * Return true if element is completely visible or if the element is too
-     * big for the viewport.
-     */
-    if (
-      (topBounds === true && bottomBounds === true) ||
-      (yPosition <= view.top && view.bottom <= yPosition + bounds.height)
-    ) {
-      return true;
-    }
-
-    if (topBounds && !bottomBounds) {
-      verticalShowing = Math.abs(bounds.top - window.innerHeight);
-      verticalPercentage = Math.abs(
-        (bounds.top - window.innerHeight) / bounds.height
-      );
-    } else if (!topBounds && bottomBounds) {
-      verticalShowing = elementBounds.bottom;
-      verticalPercentage = Math.abs(bounds.bottom / bounds.height);
-    }
-
-    if (
-      (verticalPercentage >= yValue && type === 'percentage') ||
-      (verticalShowing >= yValue && type === 'pixel')
-    ) {
-      return true;
-    }
-    return false;
-  };
-
-  /**
-   * Horizontal Visibility
-   *
-   * @param array elementBounds
-   * @param boolean rightBounds
-   * @param boolean leftBounds
-   * @param string view
-   *
-   * @return boolean
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   */
-  // const horizontalVisibility = (elementBounds, view) => {
-  //   var xPosition = window.pageXOffset + elementBounds.left;
-  //   var horizontalShowing = 0;
-  //   var horizontalPercentage = 0;
-
-  //   // Get the percentage of the element showing horizontally
-  //   if (visible.right && !visible.left) {
-  //     horizontalShowing = elementBounds.right;
-  //     horizontalPercentage = Math.abs(
-  //       elementBounds.right / elementBounds.width
-  //     );
-  //   } else if (!visible.right && visible.left) {
-  //     horizontalShowing = Math.abs(viewport.right - elementBounds.left);
-  //     horizontalPercentage = Math.abs(
-  //       (viewport.right - elementBounds.left) / elementBounds.width
-  //     );
-  //   } else if (visible.right && visible.left) {
-  //     return true;
-  //   }
-
-  //   // Check to see if the element is in the viewport but
-  //   // the width takes up the whole screen
-  //   if (
-  //     xPosition <= view.left &&
-  //     view.right <= xPosition + elementBounds.width
-  //   ) {
-  //     return true;
-  //   }
-
-  //   if (
-  //     (horizontalPercentage >= yValue && type === 'percentage') ||
-  //     (horizontalShowing >= yValue && type === 'pixel')
-  //   ) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
-  /**
    * Vertical Check.
    */
   const verticalCheck = () => {
@@ -172,44 +65,33 @@ Object.prototype.inViewport = function inViewport(
   };
 
   /**
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
+   * Horizontal Check.
    */
   const horizontalCheck = () => {
-    return false;
+    let element = 0;
+
+    if (visible.right && !visible.left) {
+      element =
+        type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
+    } else if (!visible.right && visible.left) {
+      element =
+        type === 'pixel'
+          ? Math.abs(viewport.right - bounds.left)
+          : Math.abs((viewport.right - bounds.left) / bounds.width);
+    }
+
+    return element >= xValue;
   };
 
   /**
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
    * Element Bounds Check.
    *
    * @param {object} boundCheck
    */
   const elementBoundsCheck = (boundaries) => {
-    const { sideA, sideB, viewPosition, measurementDirection } = boundaries;
+    const { sideA, sideB, measurementDirection } = boundaries;
+    const xPosition = window.pageXOffset + bounds.left;
+    const yPosition = window.pageYOffset + bounds.top;
 
     let objectVisible = 0;
 
@@ -219,8 +101,10 @@ Object.prototype.inViewport = function inViewport(
      */
     if (
       (visible[sideA] && visible[sideB]) ||
-      (viewPosition <= viewport[sideA] &&
-        viewport[sideB] <= viewPosition + bounds[measurementDirection])
+      (yPosition <= viewport[sideA] &&
+        viewport[sideB] <= yPosition + bounds[measurementDirection]) ||
+      (xPosition <= viewport.left &&
+        viewport.right <= xPosition + elementBounds.width)
     ) {
       return true;
     }
@@ -232,27 +116,6 @@ Object.prototype.inViewport = function inViewport(
   };
 
   /**
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
-   *
    * Is In View.
    */
   const isInView = () => {
@@ -264,33 +127,19 @@ Object.prototype.inViewport = function inViewport(
     const verticalBoundaries = {
       sideA: 'top',
       sideB: 'bottom',
-      viewPosition: window.pageYOffset + bounds.top,
-      windowPosition: yValue,
       measurementDirection: 'height',
     };
-    const verticalPosition = elementBoundsCheck(verticalBoundaries);
 
-    if (!verticalPosition) {
-      return false;
-    }
+    const horizontalBoundaries = {
+      sideA: 'right',
+      sideB: 'left',
+      measurementDirection: 'width',
+    };
 
-    // const horizontalBoundaries = {
-    //   sideA: 'right',
-    //   sideB: 'left',
-    //   viewPosition: window.pageXOffset + bounds.left,
-    //   windowPosition: xValue,
-    //   measurementDirection: 'width',
-    // };
-    // const horizontalPosition = elementBoundsCheck(horizontalBoundaries);
-    // console.log('horizontal:', horizontalPosition);
-
-    // if (
-    //   !horizontalVisibility(bounds, viewport) ||
-    //   !verticalVisibility(visible.top, visible.bottom, viewport)
-    // ) {
-    //   return false;
-    // }
-    return true;
+    return (
+      elementBoundsCheck(verticalBoundaries) &&
+      elementBoundsCheck(horizontalBoundaries)
+    );
   };
 
   return isInView();
