@@ -120,21 +120,12 @@ exports["default"] = void 0;
 
 /* eslint-disable prefer-destructuring */
 
-Object.prototype.inViewport = function inViewport(xValue, yValue) {
-  var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'percentage';
-  var bounds = this.getBoundingClientRect();
-  var viewport = {
-    top: window.pageYOffset,
-    left: window.pageXOffset,
-    bottom: window.pageYOffset + window.innerHeight,
-    right: window.pageXOffset + window.innerWidth
-  };
-  var visible = {
-    top: bounds.top >= 0 && bounds.top < window.innerHeight,
-    bottom: bounds.bottom > 0 && bounds.bottom <= window.innerHeight,
-    left: bounds.left >= 0 && bounds.left < window.innerWidth,
-    right: bounds.right > 0 && bounds.right <= window.innerWidth
-  };
+Object.prototype.inViewport = function inViewport(xValue, yValue, callback, intervalSpeed) {
+  var _this = this;
+
+  var type = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'percentage';
+  var isVisible = false;
+  var inView = false;
   /**
    * Error Handling.
    */
@@ -154,7 +145,10 @@ Object.prototype.inViewport = function inViewport(xValue, yValue) {
    */
 
 
-  var verticalCheck = function verticalCheck() {
+  var verticalCheck = function verticalCheck(boundaries) {
+    var viewport = boundaries.viewport,
+        visible = boundaries.visible,
+        bounds = boundaries.bounds;
     var element = 0;
 
     if (visible.top && !visible.bottom) {
@@ -170,7 +164,10 @@ Object.prototype.inViewport = function inViewport(xValue, yValue) {
    */
 
 
-  var horizontalCheck = function horizontalCheck() {
+  var horizontalCheck = function horizontalCheck(boundaries) {
+    var viewport = boundaries.viewport,
+        visible = boundaries.visible,
+        bounds = boundaries.bounds;
     var element = 0;
 
     if (visible.right && !visible.left) {
@@ -191,7 +188,10 @@ Object.prototype.inViewport = function inViewport(xValue, yValue) {
   var elementBoundsCheck = function elementBoundsCheck(boundaries) {
     var sideA = boundaries.sideA,
         sideB = boundaries.sideB,
-        measurementDirection = boundaries.measurementDirection;
+        measurementDirection = boundaries.measurementDirection,
+        visible = boundaries.visible,
+        viewport = boundaries.viewport,
+        bounds = boundaries.bounds;
     var xPosition = window.pageXOffset + bounds.left;
     var yPosition = window.pageYOffset + bounds.top;
     var objectVisible = 0;
@@ -204,8 +204,21 @@ Object.prototype.inViewport = function inViewport(xValue, yValue) {
       return true;
     }
 
-    objectVisible = measurementDirection === 'height' ? verticalCheck() : horizontalCheck();
+    objectVisible = measurementDirection === 'height' ? verticalCheck(boundaries) : horizontalCheck(boundaries);
     return objectVisible;
+  };
+  /**
+   * Callback.
+   *
+   * @param {boolean} inView
+   */
+
+
+  var checkCallback = function checkCallback() {
+    if (inView && !isVisible) {
+      console.log('in view');
+      callback();
+    }
   };
   /**
    * Is In View.
@@ -219,20 +232,61 @@ Object.prototype.inViewport = function inViewport(xValue, yValue) {
       return false;
     }
 
+    var bounds = _this.getBoundingClientRect();
+
+    var viewport = {
+      top: window.pageYOffset,
+      left: window.pageXOffset,
+      bottom: window.pageYOffset + window.innerHeight,
+      right: window.pageXOffset + window.innerWidth
+    };
+    var visible = {
+      top: bounds.top >= 0 && bounds.top < window.innerHeight,
+      bottom: bounds.bottom > 0 && bounds.bottom <= window.innerHeight,
+      left: bounds.left >= 0 && bounds.left < window.innerWidth,
+      right: bounds.right > 0 && bounds.right <= window.innerWidth
+    };
     var verticalBoundaries = {
       sideA: 'top',
       sideB: 'bottom',
-      measurementDirection: 'height'
+      measurementDirection: 'height',
+      visible: visible,
+      viewport: viewport,
+      bounds: bounds
     };
     var horizontalBoundaries = {
       sideA: 'right',
       sideB: 'left',
-      measurementDirection: 'width'
+      measurementDirection: 'width',
+      visible: visible,
+      viewport: viewport,
+      bounds: bounds
     };
-    return elementBoundsCheck(verticalBoundaries) && elementBoundsCheck(horizontalBoundaries);
+    inView = elementBoundsCheck(verticalBoundaries) && elementBoundsCheck(horizontalBoundaries);
+    console.log("inView: ".concat(inView, ", isVisible: ").concat(isVisible));
+    checkCallback();
+    return inView;
+  };
+  /**
+   * Boundary Listener.
+   */
+
+
+  var addBoundaryListener = function addBoundaryListener() {
+    console.log('adding listener...');
+    var scrolling = false;
+    window.addEventListener('scroll', function () {
+      scrolling = true;
+    }, false);
+    setInterval(function () {
+      if (scrolling) {
+        isVisible = isInView();
+        scrolling = false;
+      }
+    }, intervalSpeed);
   };
 
-  return isInView();
+  addBoundaryListener();
 };
 
 var inViewport = Object.prototype.inViewport;
@@ -279,45 +333,52 @@ viewportExample.init = function viewportBuildExample() {
   var scrolling = false;
 
   function checkView() {
-    // Selector A
-    if (selectorA.inViewport(175, 175, 'pixel')) {
+    // // Selector A
+    // if (selectorA.inViewport(175, 175, 'pixel')) {
+    //   selectorA.classList.add('visible');
+    //   selectorAResult.innerHTML = 'True';
+    // } else {
+    //   selectorA.classList.remove('visible');
+    //   selectorAResult.innerHTML = 'False';
+    // }
+    // // Selector B
+    // if (selectorB.inViewport(0.5, 0.5)) {
+    //   selectorB.classList.add('visible');
+    //   selectorBResult.innerHTML = 'True';
+    // } else {
+    //   selectorB.classList.remove('visible');
+    //   selectorBResult.innerHTML = 'False';
+    // }
+    // // Test Lines
+    // if (testContainer.inViewport(200, 200, 'pixel')) {
+    //   selectorALine.classList.add('show');
+    //   selectorBLine.classList.add('show');
+    //   header[0].classList.add('hide');
+    // } else {
+    //   selectorALine.classList.remove('show');
+    //   selectorBLine.classList.remove('show');
+    //   header[0].classList.remove('hide');
+    // }
+    selectorA.inViewport(175, 175, function () {
       selectorA.classList.add('visible');
-      selectorAResult.innerHTML = 'True';
-    } else {
-      selectorA.classList.remove('visible');
-      selectorAResult.innerHTML = 'False';
-    } // Selector B
+      console.log('is visible');
+    }, 'pixel', 20);
+  } // window.addEventListener(
+  //   'scroll',
+  //   function () {
+  //     scrolling = true;
+  //   },
+  //   false
+  // );
+  // setInterval(function checkScroll() {
+  //   if (scrolling) {
+  //     checkView();
+  //     scrolling = false;
+  //   }
+  // }, 20);
 
 
-    if (selectorB.inViewport(0.5, 0.5)) {
-      selectorB.classList.add('visible');
-      selectorBResult.innerHTML = 'True';
-    } else {
-      selectorB.classList.remove('visible');
-      selectorBResult.innerHTML = 'False';
-    } // Test Lines
-
-
-    if (testContainer.inViewport(200, 200, 'pixel')) {
-      selectorALine.classList.add('show');
-      selectorBLine.classList.add('show');
-      header[0].classList.add('hide');
-    } else {
-      selectorALine.classList.remove('show');
-      selectorBLine.classList.remove('show');
-      header[0].classList.remove('hide');
-    }
-  }
-
-  window.addEventListener('scroll', function () {
-    scrolling = true;
-  }, false);
-  setInterval(function checkScroll() {
-    if (scrolling) {
-      checkView();
-      scrolling = false;
-    }
-  }, 20);
+  checkView();
 };
 
 viewportExample.init();

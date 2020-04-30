@@ -15,21 +15,12 @@
 Object.prototype.inViewport = function inViewport(
   xValue,
   yValue,
+  callback,
+  intervalSpeed,
   type = 'percentage'
 ) {
-  const bounds = this.getBoundingClientRect();
-  const viewport = {
-    top: window.pageYOffset,
-    left: window.pageXOffset,
-    bottom: window.pageYOffset + window.innerHeight,
-    right: window.pageXOffset + window.innerWidth,
-  };
-  const visible = {
-    top: bounds.top >= 0 && bounds.top < window.innerHeight,
-    bottom: bounds.bottom > 0 && bounds.bottom <= window.innerHeight,
-    left: bounds.left >= 0 && bounds.left < window.innerWidth,
-    right: bounds.right > 0 && bounds.right <= window.innerWidth,
-  };
+  let isVisible = false;
+  let inView = false;
 
   /**
    * Error Handling.
@@ -46,7 +37,8 @@ Object.prototype.inViewport = function inViewport(
   /**
    * Vertical Check.
    */
-  const verticalCheck = () => {
+  const verticalCheck = (boundaries) => {
+    const { viewport, visible, bounds } = boundaries;
     let element = 0;
 
     if (visible.top && !visible.bottom) {
@@ -67,7 +59,8 @@ Object.prototype.inViewport = function inViewport(
   /**
    * Horizontal Check.
    */
-  const horizontalCheck = () => {
+  const horizontalCheck = (boundaries) => {
+    const { viewport, visible, bounds } = boundaries;
     let element = 0;
 
     if (visible.right && !visible.left) {
@@ -89,7 +82,14 @@ Object.prototype.inViewport = function inViewport(
    * @param {object} boundCheck
    */
   const elementBoundsCheck = (boundaries) => {
-    const { sideA, sideB, measurementDirection } = boundaries;
+    const {
+      sideA,
+      sideB,
+      measurementDirection,
+      visible,
+      viewport,
+      bounds,
+    } = boundaries;
     const xPosition = window.pageXOffset + bounds.left;
     const yPosition = window.pageYOffset + bounds.top;
 
@@ -110,9 +110,23 @@ Object.prototype.inViewport = function inViewport(
     }
 
     objectVisible =
-      measurementDirection === 'height' ? verticalCheck() : horizontalCheck();
+      measurementDirection === 'height'
+        ? verticalCheck(boundaries)
+        : horizontalCheck(boundaries);
 
     return objectVisible;
+  };
+
+  /**
+   * Callback.
+   *
+   * @param {boolean} inView
+   */
+  const checkCallback = () => {
+    if (inView && !isVisible) {
+      console.log('in view');
+      callback();
+    }
   };
 
   /**
@@ -124,25 +138,74 @@ Object.prototype.inViewport = function inViewport(
       return false;
     }
 
+    const bounds = this.getBoundingClientRect();
+
+    const viewport = {
+      top: window.pageYOffset,
+      left: window.pageXOffset,
+      bottom: window.pageYOffset + window.innerHeight,
+      right: window.pageXOffset + window.innerWidth,
+    };
+
+    const visible = {
+      top: bounds.top >= 0 && bounds.top < window.innerHeight,
+      bottom: bounds.bottom > 0 && bounds.bottom <= window.innerHeight,
+      left: bounds.left >= 0 && bounds.left < window.innerWidth,
+      right: bounds.right > 0 && bounds.right <= window.innerWidth,
+    };
+
     const verticalBoundaries = {
       sideA: 'top',
       sideB: 'bottom',
       measurementDirection: 'height',
+      visible,
+      viewport,
+      bounds,
     };
 
     const horizontalBoundaries = {
       sideA: 'right',
       sideB: 'left',
       measurementDirection: 'width',
+      visible,
+      viewport,
+      bounds,
     };
 
-    return (
+    inView =
       elementBoundsCheck(verticalBoundaries) &&
-      elementBoundsCheck(horizontalBoundaries)
-    );
+      elementBoundsCheck(horizontalBoundaries);
+
+    console.log(`inView: ${inView}, isVisible: ${isVisible}`);
+
+    checkCallback();
+
+    return inView;
   };
 
-  return isInView();
+  /**
+   * Boundary Listener.
+   */
+  const addBoundaryListener = () => {
+    console.log('adding listener...');
+    let scrolling = false;
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        scrolling = true;
+      },
+      false
+    );
+
+    setInterval(() => {
+      if (scrolling) {
+        isVisible = isInView();
+        scrolling = false;
+      }
+    }, intervalSpeed);
+  };
+  addBoundaryListener();
 };
 
 const inViewport = Object.prototype.inViewport;

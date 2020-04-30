@@ -25,50 +25,63 @@ viewportExample.init = function viewportBuildExample() {
   var scrolling = false;
 
   function checkView() {
-    // Selector A
-    if (selectorA.inViewport(175, 175, 'pixel')) {
-      selectorA.classList.add('visible');
-      selectorAResult.innerHTML = 'True';
-    } else {
-      selectorA.classList.remove('visible');
-      selectorAResult.innerHTML = 'False';
-    }
+    // // Selector A
+    // if (selectorA.inViewport(175, 175, 'pixel')) {
+    //   selectorA.classList.add('visible');
+    //   selectorAResult.innerHTML = 'True';
+    // } else {
+    //   selectorA.classList.remove('visible');
+    //   selectorAResult.innerHTML = 'False';
+    // }
 
-    // Selector B
-    if (selectorB.inViewport(0.5, 0.5)) {
-      selectorB.classList.add('visible');
-      selectorBResult.innerHTML = 'True';
-    } else {
-      selectorB.classList.remove('visible');
-      selectorBResult.innerHTML = 'False';
-    }
+    // // Selector B
+    // if (selectorB.inViewport(0.5, 0.5)) {
+    //   selectorB.classList.add('visible');
+    //   selectorBResult.innerHTML = 'True';
+    // } else {
+    //   selectorB.classList.remove('visible');
+    //   selectorBResult.innerHTML = 'False';
+    // }
 
-    // Test Lines
-    if (testContainer.inViewport(200, 200, 'pixel')) {
-      selectorALine.classList.add('show');
-      selectorBLine.classList.add('show');
-      header[0].classList.add('hide');
-    } else {
-      selectorALine.classList.remove('show');
-      selectorBLine.classList.remove('show');
-      header[0].classList.remove('hide');
-    }
+    // // Test Lines
+    // if (testContainer.inViewport(200, 200, 'pixel')) {
+    //   selectorALine.classList.add('show');
+    //   selectorBLine.classList.add('show');
+    //   header[0].classList.add('hide');
+    // } else {
+    //   selectorALine.classList.remove('show');
+    //   selectorBLine.classList.remove('show');
+    //   header[0].classList.remove('hide');
+    // }
+
+    selectorA.inViewport(
+      175,
+      175,
+      () => {
+        selectorA.classList.add('visible');
+        console.log('is visible');
+      },
+      'pixel',
+      20
+    );
   }
 
-  window.addEventListener(
-    'scroll',
-    function () {
-      scrolling = true;
-    },
-    false
-  );
+  // window.addEventListener(
+  //   'scroll',
+  //   function () {
+  //     scrolling = true;
+  //   },
+  //   false
+  // );
 
-  setInterval(function checkScroll() {
-    if (scrolling) {
-      checkView();
-      scrolling = false;
-    }
-  }, 20);
+  // setInterval(function checkScroll() {
+  //   if (scrolling) {
+  //     checkView();
+  //     scrolling = false;
+  //   }
+  // }, 20);
+
+  checkView();
 };
 
 viewportExample.init();
