@@ -1,83 +1,86 @@
+/** @format */
+
 #test-container {
-	height: 2000px;
-	position: relative;
-	padding: 8px 15px;
+  height: 6000px;
+  width: 2500px;
+  position: relative;
+  padding: 8px 15px;
   background: #f8f8f8;
   border-radius: 5px;
   border: 1px solid #e5e5e5;
-  overflow-x: auto;	
+  overflow-x: auto;
 }
 
 .result {
-	font-weight: bold;
+  font-weight: bold;
 }
-#selector-A, #selector-B {
-	position: absolute;
-	width: 30%;
-	height: 200px;
-	background-color: #e74c3c;
+#selector-A,
+#selector-B {
+  position: absolute;
+  width: 30%;
+  height: 500px;
+  background-color: #e74c3c;
 }
 
 #selector-A {
-	top: 1000px;
-	left: 15%;
+  top: 1000px;
+  left: 15%;
 }
 
 #selector-B {
-	top: 1000px;
-	right: 15%;
+  top: 1000px;
+  right: 15%;
 }
 
-#selector-A.visible, #selector-B.visible {
-	background-color: #2ecc71;
+#selector-A.visible,
+#selector-B.visible {
+  background-color: #2ecc71;
 }
 
 #selector-A-line {
-	left: 0;
-	bottom: 175px;
-	position: fixed;
-	width: 100vw;
-	border-bottom: solid 2px #f39c12;
-	padding: 0px 20px;
-	opacity: 0;
-	transform: translate3d(0, 20px, 0);
-	transition: 300ms ease 150ms;
+  left: 0;
+  bottom: 175px;
+  position: fixed;
+  width: 100vw;
+  border-bottom: solid 2px #f39c12;
+  padding: 0px 20px;
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: 300ms ease 150ms;
 }
-
 
 #selector-B-line {
-	left: 0;
-	bottom: 100px;
-	position: fixed;
-	width: 100vw;
-	border-bottom: solid 2px #2980b9;
-	padding: 0px 20px;
-	opacity: 0;
-	transform: translate3d(0, 20px, 0);
-	transition: 300ms ease;
+  left: 0;
+  bottom: 100px;
+  position: fixed;
+  width: 100vw;
+  border-bottom: solid 2px #2980b9;
+  padding: 0px 20px;
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: 300ms ease;
 }
 
-#selector-A-line.show, #selector-B-line.show {
-	opacity: 1;
-	transform: translate3d(0, 0, 0);
-	
+#selector-A-line.show,
+#selector-B-line.show {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
 }
 
 #selector-A-line.show {
-	transition: 300ms ease 300ms;
+  transition: 300ms ease 300ms;
 }
 
 #selector-B-line.show {
-	transition: 300ms ease 550ms;
+  transition: 300ms ease 550ms;
 }
 
 header {
-	opacity: 1;
-	transition: 300ms ease 500ms;
+  opacity: 1;
+  transition: 300ms ease 500ms;
 }
 
-header.hide{
-	opacity: 0;
-	transition: 150ms ease 0ms;
+header.hide {
+  opacity: 0;
+  transition: 150ms ease 0ms;
 }
-

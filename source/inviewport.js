@@ -21,6 +21,16 @@ Object.prototype.inViewport = function inViewport(
 ) {
   let isVisible = false;
   let inView = false;
+  let scrolling = false;
+  let scrollListener = null;
+  let debugging = true;
+
+  /**
+   * Set Scroll.
+   */
+  function setScroll() {
+    scrolling = true;
+  }
 
   /**
    * Error Handling.
@@ -35,10 +45,32 @@ Object.prototype.inViewport = function inViewport(
   };
 
   /**
+   * Debug Mode.
+   */
+  const debugMode = (bounds, visible, viewport) => {
+    const headingStyle =
+      'font-weight: bold; font-size: 14px; margin-bottom: 10px';
+    console.clear();
+    console.log('%cElement bounds: \n', headingStyle, bounds, '\n\n');
+    console.log('%cSide visibility: \n', headingStyle, visible, '\n\n');
+    console.log('%cViewport: \n', headingStyle, viewport, '\n\n');
+    console.log(
+      '%cWindow & variabele checks:',
+      headingStyle,
+      '\n\tWidth: ',
+      window.innerWidth,
+      '\n\tHeight: ',
+      window.innerHeight,
+      '\n\tLeft offset: ',
+      window.pageXOffset
+    );
+  };
+
+  /**
    * Vertical Check.
    */
   const verticalCheck = (boundaries) => {
-    const { viewport, visible, bounds } = boundaries;
+    const { visible, bounds } = boundaries;
     let element = 0;
 
     if (visible.top && !visible.bottom) {
@@ -46,11 +78,17 @@ Object.prototype.inViewport = function inViewport(
         type === 'pixel'
           ? Math.abs(bounds.top - window.innerHeight)
           : Math.abs((bounds.top - window.innerHeight) / bounds.height);
+      if (debugging) {
+        console.log('\tTop visible: ', element);
+      }
     } else if (!visible.top && visible.bottom) {
       element =
         type === 'pixel'
           ? bounds.bottom
           : Math.abs(bounds.bottom / bounds.height);
+      if (debugging) {
+        console.log('\tBottom visible: ', element);
+      }
     }
 
     return element >= yValue;
@@ -60,19 +98,25 @@ Object.prototype.inViewport = function inViewport(
    * Horizontal Check.
    */
   const horizontalCheck = (boundaries) => {
-    const { viewport, visible, bounds } = boundaries;
+    const { visible, bounds } = boundaries;
     let element = 0;
 
-    if (visible.right && !visible.left) {
-      element =
-        type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
-    } else if (!visible.right && visible.left) {
+    if (visible.left && !visible.right) {
       element =
         type === 'pixel'
-          ? Math.abs(viewport.right - bounds.left)
-          : Math.abs((viewport.right - bounds.left) / bounds.width);
-    }
+          ? Math.abs(bounds.left - window.innerWidth)
+          : Math.abs((bounds.left - window.innerWidth) / bounds.width);
+      if (debugging) {
+        console.log('\tLeft visible: ', element);
+      }
+    } else if (!visible.left && visible.right) {
+      element =
+        type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
 
+      if (debugging) {
+        console.log('\tRight visible: ', element);
+      }
+    }
     return element >= xValue;
   };
 
@@ -82,17 +126,7 @@ Object.prototype.inViewport = function inViewport(
    * @param {object} boundCheck
    */
   const elementBoundsCheck = (boundaries) => {
-    const {
-      sideA,
-      sideB,
-      measurementDirection,
-      visible,
-      viewport,
-      bounds,
-    } = boundaries;
-    const xPosition = window.pageXOffset + bounds.left;
-    const yPosition = window.pageYOffset + bounds.top;
-
+    const { sideA, sideB, measurementDirection, visible, bounds } = boundaries;
     let objectVisible = 0;
 
     /**
@@ -101,11 +135,21 @@ Object.prototype.inViewport = function inViewport(
      */
     if (
       (visible[sideA] && visible[sideB]) ||
-      (yPosition <= viewport[sideA] &&
-        viewport[sideB] <= yPosition + bounds[measurementDirection]) ||
-      (xPosition <= viewport.left &&
-        viewport.right <= xPosition + elementBounds.width)
+      (bounds.top < 0 && bounds.bottom > window.innerHeight) ||
+      (bounds.left < 0 && bounds.right > window.innerWidth)
     ) {
+      if (debugging) {
+        if (visible[sideA] && visible[sideB]) {
+          console.log(
+            `\tElement ${measurementDirection.trim()}: completely visible.`
+          );
+        } else {
+          console.log(
+            `\tElement ${measurementDirection.trim()}: too big for window.`
+          );
+        }
+      }
+
       return true;
     }
 
@@ -124,8 +168,21 @@ Object.prototype.inViewport = function inViewport(
    */
   const checkCallback = () => {
     if (inView && !isVisible) {
-      console.log('in view');
-      callback();
+      if (Array.isArray(callback)) {
+        callback[0]();
+      } else {
+        callback();
+        window.removeEventListener('scroll', setScroll, false);
+        clearInterval(scrollListener);
+
+        if (debugging) {
+          console.log('Scroll interval cleared and removed window scroll');
+        }
+      }
+    } else if (!inView && isVisible) {
+      if (Array.isArray(callback)) {
+        callback[1]();
+      }
     }
   };
 
@@ -151,7 +208,7 @@ Object.prototype.inViewport = function inViewport(
       top: bounds.top >= 0 && bounds.top < window.innerHeight,
       bottom: bounds.bottom > 0 && bounds.bottom <= window.innerHeight,
       left: bounds.left >= 0 && bounds.left < window.innerWidth,
-      right: bounds.right > 0 && bounds.right <= window.innerWidth,
+      right: bounds.right >= 0 && bounds.right <= window.innerWidth,
     };
 
     const verticalBoundaries = {
@@ -172,33 +229,26 @@ Object.prototype.inViewport = function inViewport(
       bounds,
     };
 
+    if (debugging) {
+      debugMode(bounds, visible, viewport);
+    }
+
     inView =
       elementBoundsCheck(verticalBoundaries) &&
       elementBoundsCheck(horizontalBoundaries);
-
-    console.log(`inView: ${inView}, isVisible: ${isVisible}`);
 
     checkCallback();
 
     return inView;
   };
+  isInView();
 
   /**
    * Boundary Listener.
    */
   const addBoundaryListener = () => {
-    console.log('adding listener...');
-    let scrolling = false;
-
-    window.addEventListener(
-      'scroll',
-      () => {
-        scrolling = true;
-      },
-      false
-    );
-
-    setInterval(() => {
+    window.addEventListener('scroll', setScroll, false);
+    scrollListener = setInterval(() => {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;
