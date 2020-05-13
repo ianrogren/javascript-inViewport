@@ -13,13 +13,15 @@
 /* eslint-disable prefer-destructuring */
 /* eslint-disable consistent-return */
 /* eslint-disable no-restricted-globals */
+/* eslint-disable function-paren-newline */
+/* eslint-disable object-curly-newline */
 
 /**
  * inviewport Object Prototype.
  *
  * @param {number} xValue
  * @param {number} yValue
- * @callback callback
+ * @param {Array} callback
  * @param {number} intervalSpeed
  * @param {object} options
  */

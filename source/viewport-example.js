@@ -8,68 +8,95 @@
 /* eslint no-var: 0 */
 /* eslint prefer-arrow-callback: 0 */
 /* eslint-disable comma-dangle */
+/* eslint-disable no-loop-func */
+/* eslint-disable no-plusplus */
 
 import '../inviewport';
 
-var viewportExample = {};
-viewportExample.init = function viewportBuildExample() {
-  const selectorA = document.getElementById('selector-A');
-  const selectorALine = document.getElementById('selector-A-line');
-  const selectorAResult = document.getElementById('selector-A-visibility');
-  const selectorB = document.getElementById('selector-B');
-  const selectorBLine = document.getElementById('selector-B-line');
-  const selectorBResult = document.getElementById('selector-B-visibility');
-  const testContainer = document.getElementById('test-container');
+document.addEventListener('DOMContentLoaded', () => {
+  const verticalScrollContainer = document.querySelector(
+    '.vertical-scroll-example'
+  );
+  const horizontalScrollContainer = document.querySelector(
+    '.horizontal-scroll-example'
+  );
 
-  selectorA.inViewport(
-    175,
-    175,
-    [
-      () => {
-        selectorA.classList.add('visible');
-        selectorAResult.innerHTML = 'True';
-      },
-      () => {
-        selectorA.classList.remove('visible');
-        selectorAResult.innerHTML = 'False';
-      },
-    ],
-    20,
-    {
-      type: 'pixel',
+  /**
+   * Build Verticle Tiles.
+   */
+  const buildTiles = (orientation, container) => {
+    for (let i = 0; i < 9; i++) {
+      const tile = document.createElement('div');
+      tile.classList.add(orientation);
+      container.appendChild(tile);
+
+      if (orientation === 'vertical-tile') {
+        tile.inViewport(
+          175,
+          175,
+          [
+            () => {
+              tile.classList.add('visible');
+            },
+            () => {
+              tile.classList.remove('visible');
+            },
+          ],
+          20,
+          { type: 'pixel' }
+        );
+      } else {
+        tile.inViewport(
+          0.5,
+          0.5,
+          [
+            () => {
+              tile.classList.add('visible');
+            },
+          ],
+          20
+        );
+      }
     }
-  );
+  };
 
-  selectorB.inViewport(
-    0.5,
-    0.5,
-    [
-      () => {
-        selectorB.classList.add('visible');
-        selectorBResult.innerHTML = 'True';
-      },
-    ],
-    20
-  );
-
-  testContainer.inViewport(
-    200,
-    200,
-    [
-      () => {
-        selectorALine.classList.add('show');
-        selectorBLine.classList.add('show');
-      },
-      () => {
-        selectorALine.classList.remove('show');
-        selectorBLine.classList.remove('show');
-      },
-    ],
-    20,
-    {
-      type: 'pixel',
+  /**
+   * Reset Horizontal Tiles.
+   */
+  const resetHorizontalTiles = () => {
+    const tiles = document.querySelectorAll('.horizontal-tile');
+    if (tiles.length > 0) {
+      tiles.forEach((tile) => {
+        tile.classList.remove('visible');
+      });
     }
-  );
-};
+  };
 
-viewportExample.init();
+  /**
+   * Initialize Example.
+   */
+  const initializeExample = () => {
+    if (verticalScrollContainer) {
+      buildTiles('vertical-tile', verticalScrollContainer);
+    }
+
+    if (horizontalScrollContainer) {
+      buildTiles('horizontal-tile', horizontalScrollContainer);
+      horizontalScrollContainer.inViewport(
+        0.01,
+        0.8,
+        [
+          () => {
+            horizontalScrollContainer.classList.add('visible');
+          },
+          () => {
+            horizontalScrollContainer.classList.remove('visible');
+            resetHorizontalTiles();
+          },
+        ],
+        20
+      );
+    }
+  };
+  initializeExample();
+});

@@ -140,12 +140,16 @@ function _typeof(obj) {
 
 /* eslint-disable no-restricted-globals */
 
+/* eslint-disable function-paren-newline */
+
+/* eslint-disable object-curly-newline */
+
 /**
  * inviewport Object Prototype.
  *
  * @param {number} xValue
  * @param {number} yValue
- * @callback callback
+ * @param {Array} callback
  * @param {number} intervalSpeed
  * @param {object} options
  */
@@ -429,41 +433,79 @@ __webpack_require__.r(__webpack_exports__);
 
 /* eslint-disable comma-dangle */
 
-var viewportExample = {};
+/* eslint-disable no-loop-func */
 
-viewportExample.init = function viewportBuildExample() {
-  var selectorA = document.getElementById('selector-A');
-  var selectorALine = document.getElementById('selector-A-line');
-  var selectorAResult = document.getElementById('selector-A-visibility');
-  var selectorB = document.getElementById('selector-B');
-  var selectorBLine = document.getElementById('selector-B-line');
-  var selectorBResult = document.getElementById('selector-B-visibility');
-  var testContainer = document.getElementById('test-container');
-  selectorA.inViewport(175, 175, [function () {
-    selectorA.classList.add('visible');
-    selectorAResult.innerHTML = 'True';
-  }, function () {
-    selectorA.classList.remove('visible');
-    selectorAResult.innerHTML = 'False';
-  }], 20, {
-    type: 'pixel'
-  });
-  selectorB.inViewport(0.5, 0.5, [function () {
-    selectorB.classList.add('visible');
-    selectorBResult.innerHTML = 'True';
-  }], 20);
-  testContainer.inViewport(200, 200, [function () {
-    selectorALine.classList.add('show');
-    selectorBLine.classList.add('show');
-  }, function () {
-    selectorALine.classList.remove('show');
-    selectorBLine.classList.remove('show');
-  }], 20, {
-    type: 'pixel'
-  });
-};
+/* eslint-disable no-plusplus */
 
-viewportExample.init();
+document.addEventListener('DOMContentLoaded', function () {
+  var verticalScrollContainer = document.querySelector('.vertical-scroll-example');
+  var horizontalScrollContainer = document.querySelector('.horizontal-scroll-example');
+  /**
+   * Build Verticle Tiles.
+   */
+
+  var buildTiles = function buildTiles(orientation, container) {
+    var _loop = function _loop(i) {
+      var tile = document.createElement('div');
+      tile.classList.add(orientation);
+      container.appendChild(tile);
+
+      if (orientation === 'vertical-tile') {
+        tile.inViewport(175, 175, [function () {
+          tile.classList.add('visible');
+        }, function () {
+          tile.classList.remove('visible');
+        }], 20, {
+          type: 'pixel'
+        });
+      } else {
+        tile.inViewport(0.5, 0.5, [function () {
+          tile.classList.add('visible');
+        }], 20);
+      }
+    };
+
+    for (var i = 0; i < 9; i++) {
+      _loop(i);
+    }
+  };
+  /**
+   * Reset Horizontal Tiles.
+   */
+
+
+  var resetHorizontalTiles = function resetHorizontalTiles() {
+    var tiles = document.querySelectorAll('.horizontal-tile');
+
+    if (tiles.length > 0) {
+      tiles.forEach(function (tile) {
+        tile.classList.remove('visible');
+      });
+    }
+  };
+  /**
+   * Initialize Example.
+   */
+
+
+  var initializeExample = function initializeExample() {
+    if (verticalScrollContainer) {
+      buildTiles('vertical-tile', verticalScrollContainer);
+    }
+
+    if (horizontalScrollContainer) {
+      buildTiles('horizontal-tile', horizontalScrollContainer);
+      horizontalScrollContainer.inViewport(0.01, 0.8, [function () {
+        horizontalScrollContainer.classList.add('visible');
+      }, function () {
+        horizontalScrollContainer.classList.remove('visible');
+        resetHorizontalTiles();
+      }], 20);
+    }
+  };
+
+  initializeExample();
+});
 
 /***/ })
 

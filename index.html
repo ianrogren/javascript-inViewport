@@ -1,91 +1,128 @@
-<!doctype html>
+<!-- @format -->
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="A light weight, pure javascript plugin used to determine whether an element is in the viewport." />
-    <meta name="keywords" content="inViewport, javascript inViewport, javascript-inViewport, viewport, js viewport plugin, js-inViewport, Ian Rogren, ianrogren, javascript, viewport" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="A light weight, pure javascript plugin used to determine whether an element is in the viewport."
+    />
+    <meta
+      name="keywords"
+      content="inViewport, javascript inViewport, javascript-inViewport, viewport, js viewport plugin, js-inViewport, Ian Rogren, ianrogren, javascript, viewport"
+    />
     <meta name="robots" content="index, follow" />
+    <title>inviewport</title>
 
-    <title>javascript inViewport - js plugin for detecting if an element is in onscreen</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="stylesheets/viewport-example.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
 
-    <link rel="stylesheet" href="stylesheets/viewport-example.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css" rel="stylesheet" type="text/css" />
-
+    <!-- Scritps -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
     <script type="text/javascript" src="build/viewport-example.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
   </head>
   <body>
-
     <header>
-      <h1>inViewport</h1>
+      <h1><i class="far fa-eye"></i> inviewport</h1>
       <p>
-        A light weight, pure javascript plugin used to determine whether an element is in the viewport. When applying the the inViewport function to an element, you must define how much vertical and horizontal space the element should be showing before returning true. Optional parameter to specify whether to use an elements onscreen percentage or by number of visible pixels.
+        A light weight, pure javascript plugin used to determine whether an
+        element is in the viewport.
       </p>
-      <ul>
-        <li><a href="https://github.com/ianrogren/javascript-inViewport/zipball/master">Download <strong>ZIP File</strong></a></li>
-        <li><a href="https://github.com/ianrogren/javascript-inViewport/tarball/master">Download <strong>TAR Ball</strong></a></li>
-        <li><a href="https://github.com/ianrogren/javascript-inViewport">View On <strong>GitHub</strong></a></li>
-      </ul>
     </header>
 
-
     <main>
-      <h2>
-        <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using inViewport
-      </h2>
-      <p>You can append the inViewport function to any element:</p>
+      <h2></h2>
+      <h2>Using inviewport</h2>
+      <p>
+        The following are two examples of how to apply inviewport to an element.
+      </p>
 
       <pre>
         <code class="javascript">
   /**
-   * Toggle Example
+   * Toggle example.
+   * Once 175 pixels is visible horizontally and vertically, 
+   * the first callback is fired. The second is fired when less
+   * than 175 pixels is visible horizontally or vertically.
    */
   const selectorA = document.getElementById('selector-a');
-
   selectorA.inViewport(175, 175,
     [
-      () => { selectorA.classList.add('visible'); },
-      () => { selectorA.classList.remove('visible'); },
+      () => { 
+        selectorA.classList.add('visible'); 
+        console.log('The element is now visible!');
+      },
+      () => { 
+        selectorA.classList.remove('visible'); 
+        console.log('The element is now hidden.')
+      },
     ],
-    20, { type: 'pixel',}
+    20, { type: 'pixel' }
+  );
+
+  /**
+   * Static example.
+   * Once 50% is visible horizontally and vertically, the 
+   * callback is fired.
+   */
+  const selectorB = document.getElementById('selector-a');
+  selectorB.inViewport(0.5, 0.5,
+    [
+      () => { 
+        selectorB.classList.add('visible'); 
+        console.log('The element is now visible!');
+      },
+    ],
+    20
   );
         </code>
       </pre>
 
-      <br/>
-      <h3>inViewport Example Setup</h3>
-      <p>In order to continually check if something is on screen, you'll want to use this script with a scroll event. Here's an example of how to use the you would be able to achieve this.  To actually see it in action, please scroll down.</p>
-      
+      <!-- Vertical Example -->
+      <div class="example-wrapper">
+        <div class="arrow-container">
+          <h2>
+            Scroll down to test.
+          </h2>
+          <p>Toggle Example</p>
+          <i class="far fa-arrow-alt-circle-down"></i>
+        </div>
+        <section class="vertical-scroll-example"></section>
+      </div>
 
-      <br/>
-      <h3>inViewport Example</h3>
-      <p>Scroll down to test.  Both selector elements in the example below are 200 pixels by 200 pixels.</p>
-      <div id="test-container">
-        <div id="selector-A"></div>
-        <div id="selector-B"></div>
-        <div id="selector-A-line">
-          Selector A visiblity: <span id="selector-A-visibility" class="result">False</span><br/>
-          <small>
-            True if at least 175px of element is shown. (Toggle enabled)
-          </small>
-        </div>
-        <div id="selector-B-line">
-          Selector B visiblity: <span id="selector-B-visibility" class="result">False</span><br/>
-          <small>
-            True if 50% of the element is visible (100px).  (Toggle disabled)
-          </small>
-        </div>
-        </div>
-      </div>  
+      <!-- Horizontal Example -->
+      <div class="example-wrapper">
+        <section class="horizontal-scroll-example">
+          <div class="example-notification">
+            <div class="arrow-container">
+              <h2>
+                Scroll right to test.
+              </h2>
+              <p>Static example</p>
+              <i class="far fa-arrow-alt-circle-right"></i>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
-
-
-
-    
   </body>
 </html>
