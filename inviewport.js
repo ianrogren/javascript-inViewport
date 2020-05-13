@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * javascript-inViewport.
  *
@@ -24,15 +26,33 @@ exports["default"] = void 0;
 /* eslint no-extend-native: ["error", { "exceptions": ["Object"] }] */
 
 /* eslint-disable prefer-destructuring */
+
+/* eslint-disable consistent-return */
+
+/* eslint-disable no-restricted-globals */
+
+/**
+ * inviewport Object Prototype.
+ *
+ * @param {number} xValue
+ * @param {number} yValue
+ * @callback callback
+ * @param {number} intervalSpeed
+ * @param {object} options
+ */
 Object.prototype.inViewport = function inViewport(xValue, yValue, callback, intervalSpeed) {
   var _this = this;
 
-  var type = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'percentage';
+  var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
+    type: 'percentage',
+    debug: false
+  };
+  var type = options.type,
+      debug = options.debug;
   var isVisible = false;
   var inView = false;
   var scrolling = false;
   var scrollListener = null;
-  var debugging = true;
   /**
    * Set Scroll.
    */
@@ -47,16 +67,35 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
 
   var errorHandling = function errorHandling() {
     var error = false;
+    var readme = '\n  View the readme: https://github.com/ianrogren/javascript-inViewport';
+    var windowError = typeof window === 'undefined' ? 'inViewport: No window object found.' : '';
+    var xError = isNaN(xValue) ? '\n\tx-value is not a number.' : '';
+    var yError = isNaN(yValue) ? '\n\ty-value is not a number.' : '';
+    var callbackError = typeof callback !== 'function' && !Array.isArray(callback) ? '\n\tCallback is not a function or array.' : '';
+    var objectWarning = _typeof(options) !== 'object' ? 'inViewport: Invalid options input.' : '';
+    var errorMessage = "".concat(windowError, " ").concat(xError, " ").concat(yError, " ").concat(callbackError);
 
-    if (window === 'undefined') {
-      console.error('inViewport: no window object found');
+    if (errorMessage !== '   ') {
+      console.error('inViewport Error:', errorMessage, readme);
       error = true;
+    }
+
+    if (objectWarning !== '') {
+      console.warn(objectWarning, readme);
     }
 
     return error;
   };
+
+  if (errorHandling()) {
+    return false;
+  }
   /**
    * Debug Mode.
+   *
+   * @param {object} bounds
+   * @param {object} visible
+   * @param {object} viewport
    */
 
 
@@ -70,6 +109,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
   };
   /**
    * Vertical Check.
+   *
+   * @param {object} boundaries
    */
 
 
@@ -81,13 +122,13 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
     if (visible.top && !visible.bottom) {
       element = type === 'pixel' ? Math.abs(bounds.top - window.innerHeight) : Math.abs((bounds.top - window.innerHeight) / bounds.height);
 
-      if (debugging) {
+      if (debug) {
         console.log('\tTop visible: ', element);
       }
     } else if (!visible.top && visible.bottom) {
       element = type === 'pixel' ? bounds.bottom : Math.abs(bounds.bottom / bounds.height);
 
-      if (debugging) {
+      if (debug) {
         console.log('\tBottom visible: ', element);
       }
     }
@@ -96,6 +137,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
   };
   /**
    * Horizontal Check.
+   *
+   * @param {object} boundaries
    */
 
 
@@ -107,13 +150,13 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
     if (visible.left && !visible.right) {
       element = type === 'pixel' ? Math.abs(bounds.left - window.innerWidth) : Math.abs((bounds.left - window.innerWidth) / bounds.width);
 
-      if (debugging) {
+      if (debug) {
         console.log('\tLeft visible: ', element);
       }
     } else if (!visible.left && visible.right) {
       element = type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
 
-      if (debugging) {
+      if (debug) {
         console.log('\tRight visible: ', element);
       }
     }
@@ -123,7 +166,7 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
   /**
    * Element Bounds Check.
    *
-   * @param {object} boundCheck
+   * @param {object} boundaries
    */
 
 
@@ -140,7 +183,7 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
      */
 
     if (visible[sideA] && visible[sideB] || bounds.top < 0 && bounds.bottom > window.innerHeight || bounds.left < 0 && bounds.right > window.innerWidth) {
-      if (debugging) {
+      if (debug) {
         if (visible[sideA] && visible[sideB]) {
           console.log("\tElement ".concat(measurementDirection.trim(), ": completely visible."));
         } else {
@@ -170,12 +213,12 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
         window.removeEventListener('scroll', setScroll, false);
         clearInterval(scrollListener);
 
-        if (debugging) {
+        if (debug) {
           console.log('Scroll interval cleared and removed window scroll');
         }
       }
     } else if (!inView && isVisible) {
-      if (Array.isArray(callback)) {
+      if (Array.isArray(callback) && typeof callback[1] === 'function') {
         callback[1]();
       }
     }
@@ -186,12 +229,6 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
 
 
   var isInView = function isInView() {
-    var errorFound = errorHandling();
-
-    if (errorFound) {
-      return false;
-    }
-
     var bounds = _this.getBoundingClientRect();
 
     var viewport = {
@@ -223,7 +260,7 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
       bounds: bounds
     };
 
-    if (debugging) {
+    if (debug) {
       debugMode(bounds, visible, viewport);
     }
 

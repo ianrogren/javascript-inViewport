@@ -20,24 +20,25 @@ viewportExample.init = function viewportBuildExample() {
   const selectorBLine = document.getElementById('selector-B-line');
   const selectorBResult = document.getElementById('selector-B-visibility');
   const testContainer = document.getElementById('test-container');
-  const header = document.getElementsByTagName('header');
 
-  // selectorA.inViewport(
-  //   175,
-  //   175,
-  //   [
-  //     () => {
-  //       selectorA.classList.add('visible');
-  //       selectorAResult.innerHTML = 'True';
-  //     },
-  //     () => {
-  //       selectorA.classList.remove('visible');
-  //       selectorAResult.innerHTML = 'False';
-  //     },
-  //   ],
-  //   20,
-  //   'pixel'
-  // );
+  selectorA.inViewport(
+    175,
+    175,
+    [
+      () => {
+        selectorA.classList.add('visible');
+        selectorAResult.innerHTML = 'True';
+      },
+      () => {
+        selectorA.classList.remove('visible');
+        selectorAResult.innerHTML = 'False';
+      },
+    ],
+    20,
+    {
+      type: 'pixel',
+    }
+  );
 
   selectorB.inViewport(
     0.5,
@@ -47,32 +48,28 @@ viewportExample.init = function viewportBuildExample() {
         selectorB.classList.add('visible');
         selectorBResult.innerHTML = 'True';
       },
-      () => {
-        selectorB.classList.remove('visible');
-        selectorBResult.innerHTML = 'False';
-      },
     ],
     20
   );
 
-  // testContainer.inViewport(
-  //   200,
-  //   200,
-  //   [
-  //     () => {
-  //       selectorALine.classList.add('show');
-  //       selectorBLine.classList.add('show');
-  //       header[0].classList.add('hide');
-  //     },
-  //     () => {
-  //       selectorALine.classList.remove('show');
-  //       selectorBLine.classList.remove('show');
-  //       header[0].classList.remove('hide');
-  //     },
-  //   ],
-  //   'pixel',
-  //   20
-  // );
+  testContainer.inViewport(
+    200,
+    200,
+    [
+      () => {
+        selectorALine.classList.add('show');
+        selectorBLine.classList.add('show');
+      },
+      () => {
+        selectorALine.classList.remove('show');
+        selectorBLine.classList.remove('show');
+      },
+    ],
+    20,
+    {
+      type: 'pixel',
+    }
+  );
 };
 
 viewportExample.init();

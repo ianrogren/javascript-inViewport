@@ -11,19 +11,30 @@
 /* eslint comma-dangle: 0 */
 /* eslint no-extend-native: ["error", { "exceptions": ["Object"] }] */
 /* eslint-disable prefer-destructuring */
+/* eslint-disable consistent-return */
+/* eslint-disable no-restricted-globals */
 
+/**
+ * inviewport Object Prototype.
+ *
+ * @param {number} xValue
+ * @param {number} yValue
+ * @callback callback
+ * @param {number} intervalSpeed
+ * @param {object} options
+ */
 Object.prototype.inViewport = function inViewport(
   xValue,
   yValue,
   callback,
   intervalSpeed,
-  type = 'percentage'
+  options = { type: 'percentage', debug: false }
 ) {
+  const { type, debug } = options;
   let isVisible = false;
   let inView = false;
   let scrolling = false;
   let scrollListener = null;
-  let debugging = true;
 
   /**
    * Set Scroll.
@@ -37,15 +48,44 @@ Object.prototype.inViewport = function inViewport(
    */
   const errorHandling = () => {
     let error = false;
-    if (window === 'undefined') {
-      console.error('inViewport: no window object found');
+    const readme =
+      '\n  View the readme: https://github.com/ianrogren/javascript-inViewport';
+    const windowError =
+      typeof window === 'undefined'
+        ? 'inViewport: No window object found.'
+        : '';
+    const xError = isNaN(xValue) ? '\n\tx-value is not a number.' : '';
+    const yError = isNaN(yValue) ? '\n\ty-value is not a number.' : '';
+    const callbackError =
+      typeof callback !== 'function' && !Array.isArray(callback)
+        ? '\n\tCallback is not a function or array.'
+        : '';
+    const objectWarning =
+      typeof options !== 'object' ? 'inViewport: Invalid options input.' : '';
+
+    const errorMessage = `${windowError} ${xError} ${yError} ${callbackError}`;
+
+    if (errorMessage !== '   ') {
+      console.error('inViewport Error:', errorMessage, readme);
       error = true;
     }
+
+    if (objectWarning !== '') {
+      console.warn(objectWarning, readme);
+    }
+
     return error;
   };
+  if (errorHandling()) {
+    return false;
+  }
 
   /**
    * Debug Mode.
+   *
+   * @param {object} bounds
+   * @param {object} visible
+   * @param {object} viewport
    */
   const debugMode = (bounds, visible, viewport) => {
     const headingStyle =
@@ -68,6 +108,8 @@ Object.prototype.inViewport = function inViewport(
 
   /**
    * Vertical Check.
+   *
+   * @param {object} boundaries
    */
   const verticalCheck = (boundaries) => {
     const { visible, bounds } = boundaries;
@@ -78,7 +120,7 @@ Object.prototype.inViewport = function inViewport(
         type === 'pixel'
           ? Math.abs(bounds.top - window.innerHeight)
           : Math.abs((bounds.top - window.innerHeight) / bounds.height);
-      if (debugging) {
+      if (debug) {
         console.log('\tTop visible: ', element);
       }
     } else if (!visible.top && visible.bottom) {
@@ -86,7 +128,7 @@ Object.prototype.inViewport = function inViewport(
         type === 'pixel'
           ? bounds.bottom
           : Math.abs(bounds.bottom / bounds.height);
-      if (debugging) {
+      if (debug) {
         console.log('\tBottom visible: ', element);
       }
     }
@@ -96,6 +138,8 @@ Object.prototype.inViewport = function inViewport(
 
   /**
    * Horizontal Check.
+   *
+   * @param {object} boundaries
    */
   const horizontalCheck = (boundaries) => {
     const { visible, bounds } = boundaries;
@@ -106,14 +150,14 @@ Object.prototype.inViewport = function inViewport(
         type === 'pixel'
           ? Math.abs(bounds.left - window.innerWidth)
           : Math.abs((bounds.left - window.innerWidth) / bounds.width);
-      if (debugging) {
+      if (debug) {
         console.log('\tLeft visible: ', element);
       }
     } else if (!visible.left && visible.right) {
       element =
         type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
 
-      if (debugging) {
+      if (debug) {
         console.log('\tRight visible: ', element);
       }
     }
@@ -123,7 +167,7 @@ Object.prototype.inViewport = function inViewport(
   /**
    * Element Bounds Check.
    *
-   * @param {object} boundCheck
+   * @param {object} boundaries
    */
   const elementBoundsCheck = (boundaries) => {
     const { sideA, sideB, measurementDirection, visible, bounds } = boundaries;
@@ -138,7 +182,7 @@ Object.prototype.inViewport = function inViewport(
       (bounds.top < 0 && bounds.bottom > window.innerHeight) ||
       (bounds.left < 0 && bounds.right > window.innerWidth)
     ) {
-      if (debugging) {
+      if (debug) {
         if (visible[sideA] && visible[sideB]) {
           console.log(
             `\tElement ${measurementDirection.trim()}: completely visible.`
@@ -175,12 +219,12 @@ Object.prototype.inViewport = function inViewport(
         window.removeEventListener('scroll', setScroll, false);
         clearInterval(scrollListener);
 
-        if (debugging) {
+        if (debug) {
           console.log('Scroll interval cleared and removed window scroll');
         }
       }
     } else if (!inView && isVisible) {
-      if (Array.isArray(callback)) {
+      if (Array.isArray(callback) && typeof callback[1] === 'function') {
         callback[1]();
       }
     }
@@ -190,11 +234,6 @@ Object.prototype.inViewport = function inViewport(
    * Is In View.
    */
   const isInView = () => {
-    const errorFound = errorHandling();
-    if (errorFound) {
-      return false;
-    }
-
     const bounds = this.getBoundingClientRect();
 
     const viewport = {
@@ -229,7 +268,7 @@ Object.prototype.inViewport = function inViewport(
       bounds,
     };
 
-    if (debugging) {
+    if (debug) {
       debugMode(bounds, visible, viewport);
     }
 
