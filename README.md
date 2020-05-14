@@ -10,24 +10,25 @@ See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-i
 
 ### npm
 
-`npm install javascript-inviewport --save`
+```javascript
+npm install javascript-inviewport --save
+```
 
 ### yarn
 
-`yarn add javascript-inviewport`
+```javascript
+yarn add javascript-inviewport
+```
 
-###  Setup
+### Basic Setup
 
 ```javascript
-
 // Using import
 import 'inviewport';
 
 // Using node require
 require('inviewport');
-
 ```
-
 
 ## Examples
 
@@ -77,12 +78,12 @@ selectorB.inViewport(
 
 ## Custom Options
 
-| Settings | Required | Default Value | Description |
-| --- | --- | --- | --- |
-| x | Required | <pre>null</pre> | The minimum horizontal value that must be exposed before returning true.  |
-| y | Required | <pre>null</pre> | The minimum vertical value that must be exposed before returning true. |
-| interval time | Required | <pre>null</pre> | The time in miliseconds to check weather an element within the viewport. Recommmended interval is <pre>20</pre> miliseconds |
-| options | Optional | <pre>{ type: 'percentage' }</pre> | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed. By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100% for both the x and y values. To switch over to pixels, update the options to `{type: "pixel"}` |
+| Settings      | Required | Default Value            | Description                                                                                                                                                                                                                                                                                                              |
+| ------------- | -------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| X-value       | Required | `null`                   | The minimum horizontal value that must be exposed before returning true.                                                                                                                                                                                                                                                 |
+| Y-value       | Required | `null`                   | The minimum vertical value that must be exposed before returning true.                                                                                                                                                                                                                                                   |
+| Interval time | Required | `null`                   | The time in miliseconds to check weather an element within the viewport. Recommmended interval is `20` miliseconds                                                                                                                                                                                                       |
+| Options       | Optional | `{ type: 'percentage' }` | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed. By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100% for both the x and y values. To switch over to pixels, update the options to `{type: "pixel"}` |
 
 ## Licence
 
