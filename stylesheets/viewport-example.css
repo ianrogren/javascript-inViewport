@@ -66,8 +66,10 @@ code {
 
 header,
 main {
-  max-width: 60rem;
+  max-width: 64rem;
   margin: 6rem auto;
+  padding: 0 2rem;
+  position: relative;
 }
 
 header > p {
@@ -95,17 +97,19 @@ header > p {
   font-size: 10rem;
 }
 
-.example-notification {
-  height: 20rem;
-  margin: 10rem 0;
-  width: 60rem;
+.example-wrapper.horizontal-notification {
+  position: absolute;
+  bottom: 10rem;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .horizontal-scroll-example {
   display: flex;
-  min-width: 400vw;
+  min-width: 480rem;
   margin: 6rem 0;
   opacity: 0;
+  margin-left: 60rem;
 }
 
 .horizontal-scroll-example .arrow-container {
@@ -120,7 +124,7 @@ header > p {
 .vertical-scroll-example {
   display: flex;
   flex-direction: column;
-  min-height: 200vh;
+  min-height: 350rem;
   padding: 20vh 0;
 }
 
@@ -182,32 +186,56 @@ header > p {
 
 .horizontal-tile:nth-child(2) {
   background-color: var(--frost-teal);
+  border-radius: 45%;
 }
 
 .horizontal-tile:nth-child(3) {
   background-color: var(--frost-blue-gray);
+  border-radius: 40%;
 }
 
 .horizontal-tile:nth-child(4) {
   background-color: var(--frost-blue);
+  border-radius: 35%;
 }
 
 .horizontal-tile:nth-child(5) {
   background-color: var(--polar-night-lightest);
+  border-radius: 25%;
 }
 
 .horizontal-tile:nth-child(6) {
   background-color: var(--polar-night-light);
+  border-radius: 20%;
 }
 
-.horizontal-tile:nth-child(7),
+.horizontal-tile:nth-child(7) {
+  background-color: var(--polar-night-medium);
+  border-radius: 15%;
+}
+
 .horizontal-tile:nth-child(8) {
   background-color: var(--polar-night-medium);
+  border-radius: 10%;
 }
 
-.horizontal-tile:nth-child(9),
+.horizontal-tile:nth-child(9) {
+  background-color: var(--polar-night-dark);
+  border-radius: 5%;
+}
+
 .horizontal-tile:nth-child(10) {
   background-color: var(--polar-night-dark);
+  border-radius: 0%;
+}
+
+.shrug {
+  top: 10rem;
+  right: -400rem;
+  position: absolute;
+  opacity: 0;
+  transition: 500ms ease-in-out;
+  font-size: 40rem;
 }
 
 .visible {

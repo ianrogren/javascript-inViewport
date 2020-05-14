@@ -20,9 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const horizontalScrollContainer = document.querySelector(
     '.horizontal-scroll-example'
   );
+  const shrug = document.querySelector('.shrug');
 
   /**
    * Build Verticle Tiles.
+   */
+  const setupShrug = () => {
+    if (shrug) {
+      console.log(shrug);
+
+      shrug.inViewport(
+        0.5,
+        0.5,
+        [
+          () => {
+            shrug.classList.add('visible');
+          },
+          () => {
+            shrug.classList.remove('visible');
+          },
+        ],
+        20
+      );
+    }
+  };
+
+  /**
+   * Build Tiles.
+   *
+   * @param {string} orientation
+   * @param {object} container
    */
   const buildTiles = (orientation, container) => {
     for (let i = 0; i < 9; i++) {
@@ -97,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
         20
       );
     }
+
+    setupShrug();
   };
   initializeExample();
 });
