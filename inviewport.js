@@ -294,5 +294,3 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
 var inViewport = Object.prototype.inViewport;
 var _default = inViewport;
 exports["default"] = _default;
-
-//# sourceMappingURL=inviewport.js.map

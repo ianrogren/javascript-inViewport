@@ -10,6 +10,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable no-loop-func */
 /* eslint-disable no-plusplus */
+/* eslint-disable function-paren-newline */
 
 import '../inviewport';
 
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const verticalScrollContainer = document.querySelector(
     '.vertical-scroll-example'
   );
+
   const horizontalScrollContainer = document.querySelector(
     '.horizontal-scroll-example'
   );
@@ -27,8 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const setupShrug = () => {
     if (shrug) {
-      console.log(shrug);
-
       shrug.inViewport(
         0.5,
         0.5,
