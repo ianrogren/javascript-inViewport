@@ -2,7 +2,7 @@
   "name": "javascript-inviewport",
   "version": "2.0.0",
   "description": "A simple, light weight, zero dependency, pure javascript plugin used to determine whether an element is within the window viewport.",
-  "main": "inviewport.js",
+  "main": "inviewport.min.js",
   "scripts": {
     "build": "npx babel ./source/inviewport.js --out-file ./inviewport.js; npx webpack;",
     "build:watch": "npx babel ./source/inviewport.js --watch --out-file ./inviewport.js;",
