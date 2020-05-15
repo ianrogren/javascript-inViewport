@@ -15,6 +15,7 @@
 /* eslint-disable no-restricted-globals */
 /* eslint-disable function-paren-newline */
 /* eslint-disable object-curly-newline */
+/* eslint-disable no-unused-vars */
 
 /**
  * inviewport Object Prototype.
