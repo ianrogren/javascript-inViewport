@@ -28,15 +28,14 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   let isVisible = false;
   let inView = false;
   let scrolling = false;
-  let scrollListener = null;
   const type = isNaN(xValue) && xValue.includes('px') ? 'pixel' : '';
 
   /**
    * Set Scroll.
    */
-  function setScroll() {
+  this.setScroll = function setScroll() {
     scrolling = true;
-  }
+  };
 
   /**
    * Vertical Check.
@@ -118,6 +117,10 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
     if (inView && !isVisible) {
       if (Array.isArray(callback)) {
         callback[0]();
+        if (callback.length === 1) {
+          window.removeEventListener('scroll', this.setScroll, false);
+          clearInterval(this.scrollListener);
+        }
       } else {
         callback();
         window.removeEventListener('scroll', this.setScroll, false);
@@ -182,8 +185,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
    * Boundary Listener.
    */
   const addBoundaryListener = () => {
-    window.addEventListener('scroll', setScroll, false);
-    scrollListener = setInterval(() => {
+    window.addEventListener('scroll', this.setScroll, false);
+    this.scrollListener = setInterval(() => {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;

@@ -33,6 +33,8 @@ exports["default"] = void 0;
 
 /* eslint-disable object-curly-newline */
 
+/* eslint-disable no-unused-vars */
+
 /**
  * inviewport Object Prototype.
  *
@@ -46,15 +48,14 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   var isVisible = false;
   var inView = false;
   var scrolling = false;
-  var scrollListener = null;
   var type = isNaN(xValue) && xValue.includes('px') ? 'pixel' : '';
   /**
    * Set Scroll.
    */
 
-  function setScroll() {
+  this.setScroll = function setScroll() {
     scrolling = true;
-  }
+  };
   /**
    * Vertical Check.
    *
@@ -132,6 +133,11 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
     if (inView && !isVisible) {
       if (Array.isArray(callback)) {
         callback[0]();
+
+        if (callback.length === 1) {
+          window.removeEventListener('scroll', _this.setScroll, false);
+          clearInterval(_this.scrollListener);
+        }
       } else {
         callback();
         window.removeEventListener('scroll', _this.setScroll, false);
@@ -190,8 +196,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
    */
 
   var addBoundaryListener = function addBoundaryListener() {
-    window.addEventListener('scroll', setScroll, false);
-    scrollListener = setInterval(function () {
+    window.addEventListener('scroll', _this.setScroll, false);
+    _this.scrollListener = setInterval(function () {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;
