@@ -1,91 +1,97 @@
-inViewport
----
+<!-- @format -->
 
-A simple, light weight, pure javascript plugin used to determine whether an element is in the viewport. When applying the the inViewport function to an element, you must define how much vertical and horizontal space the element should be showing before returning true. Optional parameter to specify whether to use an elements onscreen percentage or by number of visible pixels.   Based off of the <a href="https://github.com/moagrius/isOnScreen" target="_blank">jQuery.isOncreen</a> plugin with the ability to switch from percentage to pixels.
+# inViewport
 
-Please note that you must use a function like a scroll event to keep checking if the element you are tracking is actually in the viewport. On it's own, this plugin only checks if the element is within the viewport and will not provide scroll events. To see an example of this, please scroll down to the example setup section.
+A simple to use, light weight 1.8K minified, zero dependency, pure javascript plugin used to determine whether an element has entered within the windows viewport.
 
 See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-inViewport/">here</a>.
 
+## Installation
 
-### Installation
----
-- Download the latest release from here (or `npm install javascript-inviewport` or `bower install javascript-inviewport`).
-- Copy either `inviewport.js` or `inviewport.min.js` to your scripts folder.
-- That's it!
+### npm
 
+```javascript
+npm install javascript-inviewport --save
+```
 
-### Browser Support
+### yarn
 
-| Chrome | Firefox | Internet Explorer | Safari |
-| --- | --- | --- | --- |
-| All ✔ | All ✔ | All ✔ | All ✔ |
+```javascript
+yarn add javascript-inviewport
+```
 
+###  Basic Setup
 
-### Basic Usage
+```javascript
 
-You can append to any element or class:
+// Using import
+import 'inviewport';
 
-``` javascript
+// Using node require
+require('inviewport');
 
-  // Check element in viewport by percentage
-  // 50% horizontally and 50% vertically before firing
-  var selectorA = document.getElementById('selectorA');
-  selectorA.inViewport(0.5, 0.5);
-
-  // Check element in viewport by pixel count
-  // 150px horizontally and 175px vertically before firing
-  var selectorB = document.getElementById('selector-B');
-  selectorB.inViewport(150, 175, 'pixel');
 ```
 
 
-### Custom Options
+## Basic Use
+
+```javascript
+const element = document.querySelector('...');
+
+// Toggle in view and out of view.
+element.inViewport(xValue, yValue, [inViewCallback(), outOfViewCallback()]);
+
+// Simple non-toggle load in view
+element.inViewport(xValue, yValue, callback());
+
+
+```
+
+### Examples
+
+```javascript
+  /**
+   * Toggle example.
+   * Once 175 pixels is visible horizontally and vertically, 
+   * the first callback is fired. The second is fired when less
+   * than 175 pixels is visible horizontally or vertically.
+   */
+  const selectorA = document.getElementById('selector-a');
+  selectorA.inViewport('175px', '175px',
+    [
+      () => { 
+        selectorA.classList.add('visible'); 
+        console.log('The element is now visible!');
+      },
+      () => { 
+        selectorA.classList.remove('visible'); 
+        console.log('The element is now hidden.')
+      },
+    ]
+  );
+
+  /**
+   * Static example.
+   * Once 50% is visible horizontally and vertically, the 
+   * callback is fired.
+   */
+  const selectorB = document.getElementById('selector-b');
+  selectorB.inViewport(0.5, 0.5, () => { 
+    selectorB.classList.add('visible'); 
+    console.log('The element is now visible!');
+  });
+```
+
+## Custom Options
 
 | Settings | Required | Default Value | Description |
 | --- | --- | --- | --- |
-| x | Required | <pre>null</pre> |  The minimum horizontal value that must be exposed before returning true. |
-| y | Required | <pre>null</pre> |  The minimum vertical value that must be exposed before returning true. |
-| percentage/pixel | Optional | <pre>percentage</pre> | The option to set the exposure value by either the percentage of the element exposed or by the number of pixels the element is exposed.  By default, this plugin will accept a percentage value from 0 - 1 where 1 is 100%.  To switch over to pixels, use "pixel" as the third argument. |
+| X-value | Required | `null` | The minimum horizontal value that must be exposed before returning true.  Accepts either a pixel amount as a string works (e.g. '100px') or a number 0 - 1 for a percentage, where 1 is 100% visible.  |
+| Y-value | Required | `null` | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number 0 - 1 for a percentage, where 1 is 100% visible. |
+| Callback | Required | `null`| Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback | 
 
+## Licence
 
-### Example Setup
-
-``` javascript
-
-  var selectorA = document.getElementById('selector-A');
-  var selectorB = document.getElementById('selector-B');
-  var scrolling = false;
-
-  // Check if elements are in the viewport.
-  function checkView() {
-    if (selectorA.inViewport(175, 175, 'pixel')) {
-      selectorA.classList.add('visible');
-    } else {
-      selectorA.classList.remove('visible');
-    }
-    if (selectorB.inViewport(0.5, 0.5)) {
-      selectorB.classList.add('visible');
-    } else {
-      selectorB.classList.remove('visible');
-    }
-  }
-
-  // Detect if user is scrolling.
-  window.addEventListener('scroll', function scrollEvent() {
-    scrolling = true;
-  }, false);
-
-  // Check the view if scrolling every 20 miliseconds.
-  setInterval(function checkScroll() {
-    if (scrolling) {
-      checkView();
-      scrolling = false;
-    }
-  }, 20);
-```
-
-### Licence 
 ```
 
                         __
@@ -98,9 +104,7 @@ You can append to any element or class:
          :   :    __    :   ;
 < MIT >   :   `:'.--.`:'   ;
            `.  : o  o :  .'
-            :   `----'   :  
+            :   `----'   :
             : .  :'`:  . :
-            `.:.'    `.:.' 
+            `.:.'    `.:.'
 ```
-
-

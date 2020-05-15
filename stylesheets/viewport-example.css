@@ -1,0 +1,252 @@
+/** @format */
+:root {
+  --primary-font: 'Muli', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  --polar-night-dark: #2e3440;
+  --polar-night-medium: #3b4252;
+  --polar-night-light: #434c5e;
+  --polar-night-lightest: #4c566a;
+
+  --snow-storm-dark: #d8dee9;
+  --snow-storm-medium: #e5e9f0;
+  --snow-storm-light: #eceff4;
+
+  --frost-green: #8fbcbb;
+  --frost-teal: #88c0d0;
+  --frost-blue-gray: #81a1c1;
+  --frost-blue: #5e81ac;
+
+  --aurora-red: #bf616a;
+  --aurora-orange: #d08770;
+  --aurora-yellow: #ebcb8b;
+  --aurora-green: #a3be8c;
+  --aurora-purple: #b48ead;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #fff;
+  font-family: 'Muli', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #4c566a;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-weight: 700;
+  letter-spacing: -0.02rem;
+  margin: 2.4rem 0 1.2rem;
+}
+
+h1 {
+  font-size: 3.6rem;
+}
+
+h1 > i {
+  margin-right: 0.8rem;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+p {
+  margin: 1.2rem 0;
+}
+
+a {
+  color: #5e81ac;
+  font-weight: 700;
+}
+
+code {
+  font-size: 1.4rem;
+  border-radius: 1rem;
+}
+
+header,
+main {
+  max-width: 64rem;
+  margin: 6rem auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+header > p {
+  font-size: 1.8rem;
+  margin: 0.8rem 0;
+  font-weight: 400;
+  color: #4c566a;
+}
+
+.example-wrapper {
+  text-align: center;
+  margin: 6rem 0;
+}
+
+.example-wrapper h2 {
+  margin: 2.4rem 0 0;
+}
+
+.example-wrapper p {
+  font-weight: 700;
+  margin: 0.8rem 0 1.6rem;
+}
+
+.example-wrapper i {
+  font-size: 10rem;
+}
+
+.example-wrapper.horizontal-notification {
+  position: absolute;
+  bottom: 10rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.horizontal-scroll-example {
+  display: flex;
+  min-width: 480rem;
+  margin: 6rem 0;
+  opacity: 0;
+  margin-left: 60rem;
+}
+
+.horizontal-scroll-example .arrow-container {
+  opacity: 0;
+  transition: 500ms ease-in-out;
+}
+
+.horizontal-scroll-example.visible .arrow-container {
+  opacity: 1;
+}
+
+.vertical-scroll-example {
+  display: flex;
+  flex-direction: column;
+  min-height: 350rem;
+  padding: 20vh 0;
+}
+
+.vertical-tile {
+  display: block;
+  height: 20rem;
+  width: 20rem;
+  margin: 10rem auto;
+  background-color: #8fbcbb;
+  opacity: 0;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: 225ms ease-in-out;
+}
+
+.vertical-tile:nth-child(2) {
+  background-color: #88c0d0;
+}
+
+.vertical-tile:nth-child(3) {
+  background-color: #81a1c1;
+}
+
+.vertical-tile:nth-child(4) {
+  background-color: #5e81ac;
+}
+
+.vertical-tile:nth-child(5) {
+  background-color: #b48ead;
+}
+
+.vertical-tile:nth-child(6) {
+  background-color: #a3be8c;
+}
+
+.vertical-tile:nth-child(7) {
+  background-color: #ebcb8b;
+}
+
+.vertical-tile:nth-child(8) {
+  background-color: #d08770;
+}
+
+.vertical-tile:nth-child(9) {
+  background-color: #bf616a;
+}
+
+.horizontal-tile {
+  display: block;
+  height: 20rem;
+  width: 20rem;
+  margin: 10rem auto;
+  background-color: #8fbcbb;
+  opacity: 0;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: 225ms ease-in-out;
+}
+
+.horizontal-tile:nth-child(2) {
+  background-color: #88c0d0;
+  border-radius: 45%;
+}
+
+.horizontal-tile:nth-child(3) {
+  background-color: #81a1c1;
+  border-radius: 40%;
+}
+
+.horizontal-tile:nth-child(4) {
+  background-color: #5e81ac;
+  border-radius: 35%;
+}
+
+.horizontal-tile:nth-child(5) {
+  background-color: #4c566a;
+  border-radius: 25%;
+}
+
+.horizontal-tile:nth-child(6) {
+  background-color: #434c5e;
+  border-radius: 20%;
+}
+
+.horizontal-tile:nth-child(7) {
+  background-color: #3b4252;
+  border-radius: 15%;
+}
+
+.horizontal-tile:nth-child(8) {
+  background-color: #3b4252;
+  border-radius: 10%;
+}
+
+.horizontal-tile:nth-child(9) {
+  background-color: #2e3440;
+  border-radius: 5%;
+}
+
+.horizontal-tile:nth-child(10) {
+  background-color: #2e3440;
+  border-radius: 0%;
+}
+
+.shrug {
+  top: 10rem;
+  right: -400rem;
+  position: absolute;
+  opacity: 0;
+  transition: 500ms ease-in-out;
+  font-size: 40rem;
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+}

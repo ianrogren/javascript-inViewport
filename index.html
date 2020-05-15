@@ -1,102 +1,133 @@
-<!doctype html>
+<!-- @format -->
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>javascript inViewport - js plugin for detecting if an element is in onscreen</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <link rel="stylesheet" href="stylesheets/viewport_test.css">
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="A light weight, pure javascript plugin used to determine whether an element is in the viewport." />
-    <meta name="keywords" content="inViewport, javascript inViewport, javascript-inViewport, viewport, js viewport plugin, js-inViewport, Ian Rogren, ianrogren, javascript, viewport" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A light weight, pure javascript plugin used to determine whether an element is in the viewport."
+    />
+    <meta
+      name="keywords"
+      content="inViewport, javascript inViewport, javascript-inViewport, viewport, js viewport plugin, js-inViewport, Ian Rogren, ianrogren, javascript, viewport"
+    />
     <meta name="robots" content="index, follow" />
-    <script src="javascripts/scale.fix.js"></script>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <title>inViewport</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="stylesheets/viewport-example.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/nord-highlightjs@0.1.0/dist/nord.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    />
+
+    <!-- Scritps -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script type="text/javascript" src="build/viewport-example.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>inViewport</h1>
-        <p>A light weight, pure javascript plugin used to determine whether an element is in the viewport. When applying the the inViewport function to an element, you must define how much vertical and horizontal space the element should be showing before returning true. Optional parameter to specify whether to use an elements onscreen percentage or by number of visible pixels.  Based off of <a href="https://github.com/moagrius/isOnScreen" target="_blank">jQuery.isOncreen</a> plugin.</p> 
-        <p>Please note that you must use a function like a scroll event to keep checking if the element you are tracking is actually in the viewport. On it's own, this plugin only checks if the element is within the viewport and will not provide scroll events.  Please see the example on how to use inViewport function with a scroll event.</p>
-        <p class="view"><a href="https://github.com/ianrogren/javascript-inViewport">View the Project on GitHub <small>ianrogren/javascript-inViewport</small></a></p>
-        <ul>
-          <li><a href="https://github.com/ianrogren/javascript-inViewport/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/ianrogren/javascript-inViewport/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/ianrogren/javascript-inViewport">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-          <a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using inViewport
-        </h3>
-        <p>You can append the inViewport function to any element:</p>
-<div class="highlight highlight-source-js"><pre>  <span class="pl-c"><span class="pl-c">//</span> Check element in viewport by percentage</span>
-  <span class="pl-c"><span class="pl-c">//</span> 50% horizontally and 50% vertically before firing</span>
-  <span class="pl-k">var</span> selectorA <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selectorA<span class="pl-pds">'</span></span>);
-  <span class="pl-smi">selectorA</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>);
+    <header>
+      <h1><i class="far fa-eye"></i> inViewport</h1>
+      <p>
+        A light weight, simple, pure javascript plugin used to determine whether
+        an element is in the viewport.
+      </p>
+    </header>
 
-  <span class="pl-c"><span class="pl-c">//</span> Check element in viewport by pixel count</span>
-  <span class="pl-c"><span class="pl-c">//</span> 150px horizontally and 175px vertically before firing</span>
-  <span class="pl-k">var</span> selectorB <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-B<span class="pl-pds">'</span></span>);
-  <span class="pl-smi">selectorB</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">150</span>, <span class="pl-c1">175</span>, <span class="pl-s"><span class="pl-pds">'</span>pixel<span class="pl-pds">'</span></span>);</pre></div>
-        <br/>
-        <h3>inViewport Example Setup</h3>
-        <p>In order to continually check if something is on screen, you'll want to use this script with a scroll event. Here's an example of how to use the you would be able to achieve this.  To actually see it in action, please scroll down.</p>
-        
-        <div class="highlight highlight-source-js"><pre>  <span class="pl-k">var</span> selectorA <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-A<span class="pl-pds">'</span></span>);
-  <span class="pl-k">var</span> selectorB <span class="pl-k">=</span> <span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">'</span>selector-B<span class="pl-pds">'</span></span>);
-  <span class="pl-k">var</span> scrolling <span class="pl-k">=</span> <span class="pl-c1">false</span>;
+    <main>
+      <h2></h2>
+      <h2>Using inViewport</h2>
+      <p>
+        The following are two examples of how to apply inviewport to an element.
+        Feel free to hop on over to the
+        <a href="https://github.com/ianrogren/javascript-inViewport/"
+          >inViewport github</a
+        >
+        page for more information.
+      </p>
 
-  <span class="pl-c"><span class="pl-c">//</span> Check if elements are in the viewport.</span>
-  <span class="pl-k">function</span> <span class="pl-en">checkView</span>() {
-    <span class="pl-k">if</span> (<span class="pl-smi">selector_A</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">175</span>, <span class="pl-c1">175</span>, <span class="pl-s"><span class="pl-pds">'</span>pixel<span class="pl-pds">'</span></span>)) {
-      <span class="pl-smi">selectorA</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
-    } <span class="pl-k">else</span> {
-      <span class="pl-smi">selectorA</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">remove</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
-    }
-    <span class="pl-k">if</span> (<span class="pl-smi">selectorB</span>.<span class="pl-en">inViewport</span>(<span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>)) {
-      <span class="pl-smi">selectorB</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
-    } <span class="pl-k">else</span> {
-      <span class="pl-smi">selectorB</span>.<span class="pl-smi">classList</span>.<span class="pl-c1">remove</span>(<span class="pl-s"><span class="pl-pds">'</span>visible<span class="pl-pds">'</span></span>);
-    }
-  }
+      <pre>
+        <code class="javascript">
+  /**
+   * Toggle example.
+   * Once 175 pixels is visible horizontally and vertically, 
+   * the first callback is fired. The second is fired when less
+   * than 175 pixels is visible horizontally or vertically.
+   */
+  const selectorA = document.getElementById('selector-a');
+  selectorA.inViewport('175px', '175px',
+    [
+      () => { 
+        selectorA.classList.add('visible'); 
+        console.log('The element is now visible!');
+      },
+      () => { 
+        selectorA.classList.remove('visible'); 
+        console.log('The element is now hidden.')
+      },
+    ]
+  );
 
-  <span class="pl-c"><span class="pl-c">//</span> Detect if user is scrolling.</span>
-  <span class="pl-c1">window</span>.<span class="pl-c1">addEventListener</span>(<span class="pl-s"><span class="pl-pds">'</span>scroll<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> <span class="pl-en">scrollEvent</span>() {
-    scrolling <span class="pl-k">=</span> <span class="pl-c1">true</span>;
-  }, <span class="pl-c1">false</span>);
+  /**
+   * Static example.
+   * Once 50% is visible horizontally and vertically, the 
+   * callback is fired.
+   */
+  const selectorB = document.getElementById('selector-b');
+  selectorB.inViewport(0.5, 0.5, () => { 
+    selectorB.classList.add('visible'); 
+    console.log('The element is now visible!');
+  });
+        </code>
+      </pre>
 
-  <span class="pl-c"><span class="pl-c">//</span> Check the view if scrolling every 20 miliseconds.</span>
-  <span class="pl-c1">setInterval</span>(<span class="pl-k">function</span> <span class="pl-en">checkScroll</span>() {
-    <span class="pl-k">if</span> (scrolling) {
-      <span class="pl-en">checkView</span>();
-      scrolling <span class="pl-k">=</span> <span class="pl-c1">false</span>;
-    }
-  }, <span class="pl-c1">20</span>);</pre></div>
+      <!-- Vertical Example -->
+      <div class="example-wrapper">
+        <div class="arrow-container">
+          <h2>
+            Scroll down to test.
+          </h2>
+          <p>Toggle Example</p>
+          <i class="far fa-arrow-alt-circle-down"></i>
+        </div>
+        <section class="vertical-scroll-example"></section>
+      </div>
 
-        <br/>
-        <h3>inViewport Example</h3>
-        <p>Scroll down to test.  Both selector elements in the example below are 200 pixels by 200 pixels.</p>
-        <div id="test-container">
-          <div id="selector-A"></div>
-          <div id="selector-B"></div>
-          <div id="selector-A-line">
-            Selector A visiblity: <span id="selector-A-visibility" class="result">False</span><br/>
-            <small>Should show at least 175px of element.</small>
-          </div>
-          <div id="selector-B-line">
-            Selector B visiblity: <span id="selector-B-visibility" class="result">False</span><br/>
-            <small>Should show 50% of element (100px).</small>
-          </div>
-          </div>
-        </div>  
-      </section>
-    </div>
-    <script type="text/javascript" src="inviewport.min.js"></script>
-    <script type="text/javascript" src="javascripts/viewportExample.js"></script>
+      <!-- Horizontal Example -->
+      <div class="example-wrapper">
+        <section class="horizontal-scroll-example"></section>
+      </div>
+
+      <!-- Horizontal Notification -->
+      <div class="example-wrapper horizontal-notification">
+        <div class="arrow-container">
+          <h2>
+            Scroll right to test.
+          </h2>
+          <p>Static example</p>
+          <i class="far fa-arrow-alt-circle-right"></i>
+        </div>
+      </div>
+
+      <!--  ¯\_(ツ)_/¯ -->
+      <div class="shrug">
+        <i class="far fa-grimace"></i>
+      </div>
+    </main>
   </body>
 </html>
