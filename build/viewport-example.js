@@ -100,22 +100,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function _typeof(obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
 /**
  * javascript-inViewport.
  *
@@ -150,24 +134,16 @@ function _typeof(obj) {
  * @param {number} xValue
  * @param {number} yValue
  * @param {Array} callback
- * @param {number} intervalSpeed
- * @param {object} options
  */
 
-
-Object.prototype.inViewport = function inViewport(xValue, yValue, callback, intervalSpeed) {
+Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   var _this = this;
 
-  var options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {
-    type: 'percentage',
-    debug: false
-  };
-  var type = options.type,
-      debug = options.debug;
   var isVisible = false;
   var inView = false;
   var scrolling = false;
   var scrollListener = null;
+  var type = isNaN(xValue) && xValue.includes('px') ? 'pixel' : '';
   /**
    * Set Scroll.
    */
@@ -175,53 +151,6 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
   function setScroll() {
     scrolling = true;
   }
-  /**
-   * Error Handling.
-   */
-
-
-  var errorHandling = function errorHandling() {
-    var error = false;
-    var readme = '\n  View the readme: https://github.com/ianrogren/javascript-inViewport';
-    var windowError = typeof window === 'undefined' ? 'inViewport: No window object found.' : '';
-    var xError = isNaN(xValue) ? '\n\tx-value is not a number.' : '';
-    var yError = isNaN(yValue) ? '\n\ty-value is not a number.' : '';
-    var callbackError = typeof callback !== 'function' && !Array.isArray(callback) ? '\n\tCallback is not a function or array.' : '';
-    var objectWarning = _typeof(options) !== 'object' ? 'inViewport: Invalid options input.' : '';
-    var errorMessage = "".concat(windowError, " ").concat(xError, " ").concat(yError, " ").concat(callbackError);
-
-    if (errorMessage !== '   ') {
-      console.error('inViewport Error:', errorMessage, readme);
-      error = true;
-    }
-
-    if (objectWarning !== '') {
-      console.warn(objectWarning, readme);
-    }
-
-    return error;
-  };
-
-  if (errorHandling()) {
-    return false;
-  }
-  /**
-   * Debug Mode.
-   *
-   * @param {object} bounds
-   * @param {object} visible
-   * @param {object} viewport
-   */
-
-
-  var debugMode = function debugMode(bounds, visible, viewport) {
-    var headingStyle = 'font-weight: bold; font-size: 14px; margin-bottom: 10px';
-    console.clear();
-    console.log('%cElement bounds: \n', headingStyle, bounds, '\n\n');
-    console.log('%cSide visibility: \n', headingStyle, visible, '\n\n');
-    console.log('%cViewport: \n', headingStyle, viewport, '\n\n');
-    console.log('%cWindow & variabele checks:', headingStyle, '\n\tWidth: ', window.innerWidth, '\n\tHeight: ', window.innerHeight, '\n\tLeft offset: ', window.pageXOffset);
-  };
   /**
    * Vertical Check.
    *
@@ -236,16 +165,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
 
     if (visible.top && !visible.bottom) {
       element = type === 'pixel' ? Math.abs(bounds.top - window.innerHeight) : Math.abs((bounds.top - window.innerHeight) / bounds.height);
-
-      if (debug) {
-        console.log('\tTop visible: ', element);
-      }
     } else if (!visible.top && visible.bottom) {
       element = type === 'pixel' ? bounds.bottom : Math.abs(bounds.bottom / bounds.height);
-
-      if (debug) {
-        console.log('\tBottom visible: ', element);
-      }
     }
 
     return element >= yValue;
@@ -264,16 +185,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
 
     if (visible.left && !visible.right) {
       element = type === 'pixel' ? Math.abs(bounds.left - window.innerWidth) : Math.abs((bounds.left - window.innerWidth) / bounds.width);
-
-      if (debug) {
-        console.log('\tLeft visible: ', element);
-      }
     } else if (!visible.left && visible.right) {
       element = type === 'pixel' ? bounds.right : Math.abs(bounds.right / bounds.width);
-
-      if (debug) {
-        console.log('\tRight visible: ', element);
-      }
     }
 
     return element >= xValue;
@@ -298,14 +211,6 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
      */
 
     if (visible[sideA] && visible[sideB] || bounds.top < 0 && bounds.bottom > window.innerHeight || bounds.left < 0 && bounds.right > window.innerWidth) {
-      if (debug) {
-        if (visible[sideA] && visible[sideB]) {
-          console.log("\tElement ".concat(measurementDirection.trim(), ": completely visible."));
-        } else {
-          console.log("\tElement ".concat(measurementDirection.trim(), ": too big for window."));
-        }
-      }
-
       return true;
     }
 
@@ -325,12 +230,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
         callback[0]();
       } else {
         callback();
-        window.removeEventListener('scroll', setScroll, false);
-        clearInterval(scrollListener);
-
-        if (debug) {
-          console.log('Scroll interval cleared and removed window scroll');
-        }
+        window.removeEventListener('scroll', _this.setScroll, false);
+        clearInterval(_this.scrollListener);
       }
     } else if (!inView && isVisible) {
       if (Array.isArray(callback) && typeof callback[1] === 'function') {
@@ -374,11 +275,6 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
       viewport: viewport,
       bounds: bounds
     };
-
-    if (debug) {
-      debugMode(bounds, visible, viewport);
-    }
-
     inView = elementBoundsCheck(verticalBoundaries) && elementBoundsCheck(horizontalBoundaries);
     checkCallback();
     return inView;
@@ -396,7 +292,7 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback, inte
         isVisible = isInView();
         scrolling = false;
       }
-    }, intervalSpeed);
+    }, 20);
   };
 
   addBoundaryListener();
@@ -437,6 +333,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* eslint-disable no-plusplus */
 
+/* eslint-disable function-paren-newline */
+
 document.addEventListener('DOMContentLoaded', function () {
   var verticalScrollContainer = document.querySelector('.vertical-scroll-example');
   var horizontalScrollContainer = document.querySelector('.horizontal-scroll-example');
@@ -447,12 +345,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var setupShrug = function setupShrug() {
     if (shrug) {
-      console.log(shrug);
       shrug.inViewport(0.5, 0.5, [function () {
         shrug.classList.add('visible');
       }, function () {
         shrug.classList.remove('visible');
-      }], 20);
+      }]);
     }
   };
   /**
@@ -470,36 +367,20 @@ document.addEventListener('DOMContentLoaded', function () {
       container.appendChild(tile);
 
       if (orientation === 'vertical-tile') {
-        tile.inViewport(175, 175, [function () {
+        tile.inViewport('175px', '175px', [function () {
           tile.classList.add('visible');
         }, function () {
           tile.classList.remove('visible');
-        }], 20, {
-          type: 'pixel'
-        });
+        }]);
       } else {
-        tile.inViewport(0.5, 0.5, [function () {
+        tile.inViewport(0.5, 0.5, function () {
           tile.classList.add('visible');
-        }], 20);
+        });
       }
     };
 
     for (var i = 0; i < 9; i++) {
       _loop(i);
-    }
-  };
-  /**
-   * Reset Horizontal Tiles.
-   */
-
-
-  var resetHorizontalTiles = function resetHorizontalTiles() {
-    var tiles = document.querySelectorAll('.horizontal-tile');
-
-    if (tiles.length > 0) {
-      tiles.forEach(function (tile) {
-        tile.classList.remove('visible');
-      });
     }
   };
   /**
@@ -514,12 +395,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (horizontalScrollContainer) {
       buildTiles('horizontal-tile', horizontalScrollContainer);
-      horizontalScrollContainer.inViewport(0.01, 0.8, [function () {
+      horizontalScrollContainer.inViewport(0.01, 0.8, function () {
         horizontalScrollContainer.classList.add('visible');
-      }, function () {
-        horizontalScrollContainer.classList.remove('visible');
-        resetHorizontalTiles();
-      }], 20);
+      });
     }
 
     setupShrug();

@@ -54,6 +54,11 @@
       <h2>Using inViewport</h2>
       <p>
         The following are two examples of how to apply inviewport to an element.
+        Feel free to hop on over to the
+        <a href="https://github.com/ianrogren/javascript-inViewport/"
+          >inViewport github</a
+        >
+        page for more information.
       </p>
 
       <pre>
@@ -65,7 +70,7 @@
    * than 175 pixels is visible horizontally or vertically.
    */
   const selectorA = document.getElementById('selector-a');
-  selectorA.inViewport(175, 175,
+  selectorA.inViewport('175px', '175px',
     [
       () => { 
         selectorA.classList.add('visible'); 
@@ -75,8 +80,7 @@
         selectorA.classList.remove('visible'); 
         console.log('The element is now hidden.')
       },
-    ],
-    20, { type: 'pixel' }
+    ]
   );
 
   /**
@@ -84,16 +88,11 @@
    * Once 50% is visible horizontally and vertically, the 
    * callback is fired.
    */
-  const selectorB = document.getElementById('selector-a');
-  selectorB.inViewport(0.5, 0.5,
-    [
-      () => { 
-        selectorB.classList.add('visible'); 
-        console.log('The element is now visible!');
-      },
-    ],
-    20
-  );
+  const selectorB = document.getElementById('selector-b');
+  selectorB.inViewport(0.5, 0.5, () => { 
+    selectorB.classList.add('visible'); 
+    console.log('The element is now visible!');
+  });
         </code>
       </pre>
 

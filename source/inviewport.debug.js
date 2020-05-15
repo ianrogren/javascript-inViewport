@@ -38,6 +38,67 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   }
 
   /**
+   * Error Handling.
+   */
+  const errorHandling = () => {
+    let error = false;
+    const readme =
+      '\n  View the readme: https://github.com/ianrogren/javascript-inViewport';
+    const windowError =
+      typeof window === 'undefined'
+        ? 'inViewport: No window object found.'
+        : '';
+    const xError =
+      (isNaN(xValue) && xValue.includes('px')) || !isNaN(xValue)
+        ? ''
+        : '\n\tInvalid x-value input.';
+    const yError =
+      (isNaN(yValue) && yValue.includes('px')) || !isNaN(yValue)
+        ? ''
+        : '\n\tInvalid y-value input.';
+    const callbackError =
+      typeof callback !== 'function' && !Array.isArray(callback)
+        ? '\n\tCallback is not a function or array.'
+        : '';
+
+    const errorMessage = `${windowError} ${xError} ${yError} ${callbackError}`;
+    if (errorMessage !== '   ') {
+      console.error('inViewport Error:', errorMessage, readme);
+      error = true;
+    }
+    return error;
+  };
+  if (errorHandling()) {
+    return false;
+  }
+
+  /**
+   * Debug Mode.
+   *
+   * @param {object} bounds
+   * @param {object} visible
+   * @param {object} viewport
+   */
+  const debugMode = (bounds, visible, viewport) => {
+    const headingStyle =
+      'font-weight: bold; font-size: 14px; margin-bottom: 10px';
+    console.clear();
+    console.log('%cElement bounds: \n', headingStyle, bounds, '\n\n');
+    console.log('%cSide visibility: \n', headingStyle, visible, '\n\n');
+    console.log('%cViewport: \n', headingStyle, viewport, '\n\n');
+    console.log(
+      '%cWindow & variabele checks:',
+      headingStyle,
+      '\n\tWidth: ',
+      window.innerWidth,
+      '\n\tHeight: ',
+      window.innerHeight,
+      '\n\tLeft offset: ',
+      window.pageXOffset
+    );
+  };
+
+  /**
    * Vertical Check.
    *
    * @param {object} boundaries
@@ -166,6 +227,11 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
       viewport,
       bounds,
     };
+
+    const debug = false;
+    if (debug) {
+      debugMode(bounds, visible, viewport);
+    }
 
     inView =
       elementBoundsCheck(verticalBoundaries) &&

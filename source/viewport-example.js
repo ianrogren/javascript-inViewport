@@ -29,19 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const setupShrug = () => {
     if (shrug) {
-      shrug.inViewport(
-        0.5,
-        0.5,
-        [
-          () => {
-            shrug.classList.add('visible');
-          },
-          () => {
-            shrug.classList.remove('visible');
-          },
-        ],
-        20
-      );
+      shrug.inViewport(0.5, 0.5, [
+        () => {
+          shrug.classList.add('visible');
+        },
+        () => {
+          shrug.classList.remove('visible');
+        },
+      ]);
     }
   };
 
@@ -58,44 +53,19 @@ document.addEventListener('DOMContentLoaded', () => {
       container.appendChild(tile);
 
       if (orientation === 'vertical-tile') {
-        tile.inViewport(
-          175,
-          175,
-          [
-            () => {
-              tile.classList.add('visible');
-            },
-            () => {
-              tile.classList.remove('visible');
-            },
-          ],
-          20,
-          { type: 'pixel' }
-        );
+        tile.inViewport('175px', '175px', [
+          () => {
+            tile.classList.add('visible');
+          },
+          () => {
+            tile.classList.remove('visible');
+          },
+        ]);
       } else {
-        tile.inViewport(
-          0.5,
-          0.5,
-          [
-            () => {
-              tile.classList.add('visible');
-            },
-          ],
-          20
-        );
+        tile.inViewport(0.5, 0.5, () => {
+          tile.classList.add('visible');
+        });
       }
-    }
-  };
-
-  /**
-   * Reset Horizontal Tiles.
-   */
-  const resetHorizontalTiles = () => {
-    const tiles = document.querySelectorAll('.horizontal-tile');
-    if (tiles.length > 0) {
-      tiles.forEach((tile) => {
-        tile.classList.remove('visible');
-      });
     }
   };
 
@@ -109,20 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (horizontalScrollContainer) {
       buildTiles('horizontal-tile', horizontalScrollContainer);
-      horizontalScrollContainer.inViewport(
-        0.01,
-        0.8,
-        [
-          () => {
-            horizontalScrollContainer.classList.add('visible');
-          },
-          () => {
-            horizontalScrollContainer.classList.remove('visible');
-            resetHorizontalTiles();
-          },
-        ],
-        20
-      );
+      horizontalScrollContainer.inViewport(0.01, 0.8, () => {
+        horizontalScrollContainer.classList.add('visible');
+      });
     }
 
     setupShrug();
