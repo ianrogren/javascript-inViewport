@@ -1,6 +1,6 @@
 {
   "name": "javascript-inviewport",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "A simple, light weight, zero dependency, pure javascript plugin used to determine whether an element is within the window viewport.",
   "main": "inviewport.js",
   "scripts": {
