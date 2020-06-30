@@ -24,16 +24,17 @@
  * @param {number} yValue
  * @param {Array} callback
  */
-Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
+const inViewport = (node, xValue, yValue, callback) => {
   let isVisible = false;
   let inView = false;
   let scrolling = false;
+  let scrollListener = null;
   const type = isNaN(xValue) && xValue.includes('px') ? 'pixel' : '';
 
   /**
    * Set Scroll.
    */
-  this.setScroll = function setScroll() {
+  const setScroll = function setScroll() {
     scrolling = true;
   };
 
@@ -118,13 +119,13 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
       if (Array.isArray(callback)) {
         callback[0]();
         if (callback.length === 1) {
-          window.removeEventListener('scroll', this.setScroll, false);
-          clearInterval(this.scrollListener);
+          window.removeEventListener('scroll', setScroll, false);
+          clearInterval(scrollListener);
         }
       } else {
         callback();
-        window.removeEventListener('scroll', this.setScroll, false);
-        clearInterval(this.scrollListener);
+        window.removeEventListener('scroll', setScroll, false);
+        clearInterval(scrollListener);
       }
     } else if (!inView && isVisible) {
       if (Array.isArray(callback) && typeof callback[1] === 'function') {
@@ -137,7 +138,11 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
    * Is In View.
    */
   const isInView = () => {
-    const bounds = this.getBoundingClientRect();
+    if (!(node instanceof Element) && !(node instanceof HTMLDocument)) {
+      return false;
+    }
+
+    const bounds = node.getBoundingClientRect();
 
     const viewport = {
       top: window.pageYOffset,
@@ -185,8 +190,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
    * Boundary Listener.
    */
   const addBoundaryListener = () => {
-    window.addEventListener('scroll', this.setScroll, false);
-    this.scrollListener = setInterval(() => {
+    window.addEventListener('scroll', setScroll, false);
+    scrollListener = setInterval(() => {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;
@@ -196,5 +201,4 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   addBoundaryListener();
 };
 
-const inViewport = Object.prototype.inViewport;
 export default inViewport;

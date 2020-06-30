@@ -42,18 +42,17 @@ exports["default"] = void 0;
  * @param {number} yValue
  * @param {Array} callback
  */
-Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
-  var _this = this;
-
+var inViewport = function inViewport(node, xValue, yValue, callback) {
   var isVisible = false;
   var inView = false;
   var scrolling = false;
+  var scrollListener = null;
   var type = isNaN(xValue) && xValue.includes('px') ? 'pixel' : '';
   /**
    * Set Scroll.
    */
 
-  this.setScroll = function setScroll() {
+  var setScroll = function setScroll() {
     scrolling = true;
   };
   /**
@@ -135,13 +134,13 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
         callback[0]();
 
         if (callback.length === 1) {
-          window.removeEventListener('scroll', _this.setScroll, false);
-          clearInterval(_this.scrollListener);
+          window.removeEventListener('scroll', setScroll, false);
+          clearInterval(scrollListener);
         }
       } else {
         callback();
-        window.removeEventListener('scroll', _this.setScroll, false);
-        clearInterval(_this.scrollListener);
+        window.removeEventListener('scroll', setScroll, false);
+        clearInterval(scrollListener);
       }
     } else if (!inView && isVisible) {
       if (Array.isArray(callback) && typeof callback[1] === 'function') {
@@ -155,8 +154,11 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
 
 
   var isInView = function isInView() {
-    var bounds = _this.getBoundingClientRect();
+    if (!(node instanceof Element) && !(node instanceof HTMLDocument)) {
+      return false;
+    }
 
+    var bounds = node.getBoundingClientRect();
     var viewport = {
       top: window.pageYOffset,
       left: window.pageXOffset,
@@ -196,8 +198,8 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
    */
 
   var addBoundaryListener = function addBoundaryListener() {
-    window.addEventListener('scroll', _this.setScroll, false);
-    _this.scrollListener = setInterval(function () {
+    window.addEventListener('scroll', setScroll, false);
+    scrollListener = setInterval(function () {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;
@@ -208,6 +210,5 @@ Object.prototype.inViewport = function inViewport(xValue, yValue, callback) {
   addBoundaryListener();
 };
 
-var inViewport = Object.prototype.inViewport;
 var _default = inViewport;
 exports["default"] = _default;

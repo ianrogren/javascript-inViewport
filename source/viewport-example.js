@@ -12,7 +12,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable function-paren-newline */
 
-import '../inviewport';
+import inViewport from '../inviewport';
 
 document.addEventListener('DOMContentLoaded', () => {
   const verticalScrollContainer = document.querySelector(
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const setupShrug = () => {
     if (shrug) {
-      shrug.inViewport(0.5, 0.5, [
+      inViewport(shrug, 0.5, 0.5, [
         () => {
           shrug.classList.add('visible');
         },
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       container.appendChild(tile);
 
       if (orientation === 'vertical-tile') {
-        tile.inViewport('175px', '175px', [
+        inViewport(tile, '175px', '175px', [
           () => {
             tile.classList.add('visible');
           },
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
           },
         ]);
       } else {
-        tile.inViewport(0.5, 0.5, () => {
+        inViewport(tile, 0.5, 0.5, () => {
           tile.classList.add('visible');
         });
       }
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (horizontalScrollContainer) {
       buildTiles('horizontal-tile', horizontalScrollContainer);
-      horizontalScrollContainer.inViewport(0.01, 0.8, () => {
+      inViewport(horizontalScrollContainer, 0.01, 0.8, () => {
         horizontalScrollContainer.classList.add('visible');
       });
     }
