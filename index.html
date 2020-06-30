@@ -70,7 +70,7 @@
    * than 175 pixels is visible horizontally or vertically.
    */
   const selectorA = document.getElementById('selector-a');
-  selectorA.inViewport('175px', '175px',
+  inViewport(selectorA, '175px', '175px',
     [
       () => { 
         selectorA.classList.add('visible'); 
@@ -89,7 +89,7 @@
    * callback is fired.
    */
   const selectorB = document.getElementById('selector-b');
-  selectorB.inViewport(0.5, 0.5, () => { 
+  inViewport(selectorB, 0.5, 0.5, () => { 
     selectorB.classList.add('visible'); 
     console.log('The element is now visible!');
   });

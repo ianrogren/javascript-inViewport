@@ -24,10 +24,10 @@ yarn add javascript-inviewport
 
 ```javascript
 // Using import
-import 'javascript-inviewport';
+import inViewport from 'javascript-inviewport';
 
 // Using node require
-require('javascript-inviewport');
+const inViewport = require('javascript-inviewport');
 ```
 
 ## Basic Use
@@ -36,10 +36,10 @@ require('javascript-inviewport');
 const element = document.querySelector('...');
 
 // Toggle in view and out of view.
-element.inViewport(xValue, yValue, [inViewCallback(), outOfViewCallback()]);
+inViewport(element, xValue, yValue, [inViewCallback(), outOfViewCallback()]);
 
 // Simple non-toggle load in view
-element.inViewport(xValue, yValue, callback());
+inViewport(element, xValue, yValue, callback());
 ```
 
 ### Examples
@@ -52,7 +52,7 @@ element.inViewport(xValue, yValue, callback());
  * than 175 pixels is visible horizontally or vertically.
  */
 const selectorA = document.getElementById('selector-a');
-selectorA.inViewport('175px', '175px', [
+inViewport(selectorA, '175px', '175px', [
   () => {
     selectorA.classList.add('visible');
     console.log('The element is now visible!');
@@ -69,7 +69,7 @@ selectorA.inViewport('175px', '175px', [
  * callback is fired.
  */
 const selectorB = document.getElementById('selector-b');
-selectorB.inViewport(0.5, 0.5, () => {
+inViewport(selectorB, 0.5, 0.5, () => {
   selectorB.classList.add('visible');
   console.log('The element is now visible!');
 });
@@ -77,11 +77,12 @@ selectorB.inViewport(0.5, 0.5, () => {
 
 ## Custom Options
 
-| Settings | Required | Default Value | Description                                                                                                                                                                                               |
-| -------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| X-value  | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
-| Y-value  | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
-| Callback | Required | `null`        | Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback        |
+| Settings  | Required | Default Value | Description                                                                                                                                                                                               |
+| --------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HTML node | Required | `null`        | Valid HTML node element to check to see if it's in the viewport of the window.                                                                                                                            |
+| X-value   | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
+| Y-value   | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
+| Callback  | Required | `null`        | Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback        |
 
 ## Licence
 
