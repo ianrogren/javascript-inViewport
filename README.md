@@ -77,11 +77,12 @@ inViewport(selectorB, 0.5, 0.5, () => {
 
 ## Custom Options
 
-| Settings | Required | Default Value | Description                                                                                                                                                                                               |
-| -------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| X-value  | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
-| Y-value  | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
-| Callback | Required | `null`        | Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback        |
+| Settings  | Required | Default Value | Description                                                                                                                                                                                               |
+| --------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HTML node | Required | `null`        | Valid HTML node element to check to see if it's in the viewport of the window.                                                                                                                            |
+| X-value   | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
+| Y-value   | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
+| Callback  | Required | `null`        | Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback        |
 
 ## Licence
 
