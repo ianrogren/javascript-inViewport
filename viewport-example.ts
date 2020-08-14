@@ -12,17 +12,17 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable function-paren-newline */
 
-import inViewport from '../inviewport';
+import inViewport from "./inviewport";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   const verticalScrollContainer = document.querySelector(
-    '.vertical-scroll-example'
+    ".vertical-scroll-example"
   );
 
   const horizontalScrollContainer = document.querySelector(
-    '.horizontal-scroll-example'
+    ".horizontal-scroll-example"
   );
-  const shrug = document.querySelector('.shrug');
+  const shrug = document.querySelector(".shrug");
 
   /**
    * Build Verticle Tiles.
@@ -31,10 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shrug) {
       inViewport(shrug, 0.5, 0.5, [
         () => {
-          shrug.classList.add('visible');
+          shrug.classList.add("visible");
         },
         () => {
-          shrug.classList.remove('visible');
+          shrug.classList.remove("visible");
         },
       ]);
     }
@@ -48,22 +48,22 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const buildTiles = (orientation, container) => {
     for (let i = 0; i < 9; i++) {
-      const tile = document.createElement('div');
+      const tile = document.createElement("div");
       tile.classList.add(orientation);
       container.appendChild(tile);
 
-      if (orientation === 'vertical-tile') {
-        inViewport(tile, '175px', '175px', [
+      if (orientation === "vertical-tile") {
+        inViewport(tile, "175px", "175px", [
           () => {
-            tile.classList.add('visible');
+            tile.classList.add("visible");
           },
           () => {
-            tile.classList.remove('visible');
+            tile.classList.remove("visible");
           },
         ]);
       } else {
         inViewport(tile, 0.5, 0.5, () => {
-          tile.classList.add('visible');
+          tile.classList.add("visible");
         });
       }
     }
@@ -74,13 +74,13 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   const initializeExample = () => {
     if (verticalScrollContainer) {
-      buildTiles('vertical-tile', verticalScrollContainer);
+      buildTiles("vertical-tile", verticalScrollContainer);
     }
 
     if (horizontalScrollContainer) {
-      buildTiles('horizontal-tile', horizontalScrollContainer);
+      buildTiles("horizontal-tile", horizontalScrollContainer);
       inViewport(horizontalScrollContainer, 0.01, 0.8, () => {
-        horizontalScrollContainer.classList.add('visible');
+        horizontalScrollContainer.classList.add("visible");
       });
     }
 
