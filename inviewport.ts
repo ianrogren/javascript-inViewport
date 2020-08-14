@@ -36,10 +36,8 @@ const inViewport: Function = (
 
   /**
    * Vertical Check.
-   *
-   * @param {object} boundaries
    */
-  const verticalCheck = (boundaries: Boundaries): boolean => {
+  const verticalCheck: Function = (boundaries: Boundaries): boolean => {
     const { visible, bounds } = boundaries;
     let element: number = 0;
     if (visible.top && !visible.bottom) {
@@ -58,10 +56,8 @@ const inViewport: Function = (
 
   /**
    * Horizontal Check.
-   *
-   * @param {object} boundaries
    */
-  const horizontalCheck = (boundaries: Boundaries): boolean => {
+  const horizontalCheck: Function = (boundaries: Boundaries): boolean => {
     const { visible, bounds } = boundaries;
     let element: number = 0;
     if (visible.left && !visible.right) {
@@ -78,10 +74,8 @@ const inViewport: Function = (
 
   /**
    * Element Bounds Check.
-   *
-   * @param {object} boundaries
    */
-  const elementBoundsCheck = (boundaries: Boundaries): boolean => {
+  const elementBoundsCheck: Function = (boundaries: Boundaries): boolean => {
     const { sideA, sideB, measurementDirection, visible, bounds } = boundaries;
     let objectVisible = false;
 
@@ -107,10 +101,8 @@ const inViewport: Function = (
 
   /**
    * Callback.
-   *
-   * @param {boolean} inView
    */
-  const checkCallback = (): void => {
+  const checkCallback: Function = (): void => {
     if (inView && !isVisible) {
       if (Array.isArray(callback)) {
         callback[0]();
@@ -133,7 +125,7 @@ const inViewport: Function = (
   /**
    * Is In View.
    */
-  const isInView = (): boolean => {
+  const isInView: Function = (): boolean => {
     if (!(node instanceof HTMLElement)) {
       return false;
     }
@@ -185,9 +177,9 @@ const inViewport: Function = (
   /**
    * Boundary Listener.
    */
-  const addBoundaryListener = (): void => {
+  const addBoundaryListener: Function = (): void => {
     window.addEventListener("scroll", setScroll, false);
-    scrollListener = setInterval((): void => {
+    scrollListener = window.setInterval((): void => {
       if (scrolling) {
         isVisible = isInView();
         scrolling = false;

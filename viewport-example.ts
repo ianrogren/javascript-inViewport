@@ -5,29 +5,22 @@
  */
 
 /* eslint no-undef: 0 */
-/* eslint no-var: 0 */
-/* eslint prefer-arrow-callback: 0 */
-/* eslint-disable comma-dangle */
-/* eslint-disable no-loop-func */
-/* eslint-disable no-plusplus */
-/* eslint-disable function-paren-newline */
-
 import inViewport from "./inviewport";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const verticalScrollContainer = document.querySelector(
+document.addEventListener("DOMContentLoaded", (): void => {
+  const verticalScrollContainer: HTMLElement = document.querySelector(
     ".vertical-scroll-example"
   );
 
-  const horizontalScrollContainer = document.querySelector(
+  const horizontalScrollContainer: HTMLElement = document.querySelector(
     ".horizontal-scroll-example"
   );
-  const shrug = document.querySelector(".shrug");
+  const shrug: HTMLElement = document.querySelector(".shrug");
 
   /**
    * Build Verticle Tiles.
    */
-  const setupShrug = () => {
+  const setupShrug: Function = (): void => {
     if (shrug) {
       inViewport(shrug, 0.5, 0.5, [
         () => {
@@ -42,13 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Build Tiles.
-   *
-   * @param {string} orientation
-   * @param {object} container
    */
-  const buildTiles = (orientation, container) => {
+  const buildTiles: Function = (
+    orientation: string,
+    container: HTMLElement
+  ): void => {
     for (let i = 0; i < 9; i++) {
-      const tile = document.createElement("div");
+      const tile: HTMLElement = document.createElement("div");
       tile.classList.add(orientation);
       container.appendChild(tile);
 
@@ -72,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * Initialize Example.
    */
-  const initializeExample = () => {
+  const initializeExample: Function = (): void => {
     if (verticalScrollContainer) {
       buildTiles("vertical-tile", verticalScrollContainer);
     }
