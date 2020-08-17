@@ -78,13 +78,17 @@ const inViewport: Function = (
   const elementBoundsCheck: Function = (boundaries: Boundaries): boolean => {
     const { sideA, sideB, measurementDirection, visible, bounds } = boundaries;
     let objectVisible = false;
+    const visibleCheck: boolean =
+      sideA === "top" && sideB === "bottom"
+        ? visible.top && visible.bottom
+        : visible.right && visible.left;
 
     /**
      * Return true if element is completely visible or if the element is too
      * big for the viewport.
      */
     if (
-      (visible[sideA] && visible[sideB]) ||
+      visibleCheck ||
       (bounds.top < 0 && bounds.bottom > window.innerHeight) ||
       (bounds.left < 0 && bounds.right > window.innerWidth)
     ) {

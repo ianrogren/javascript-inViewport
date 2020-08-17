@@ -1,18 +1,20 @@
 {
   "name": "javascript-inviewport",
-  "version": "3.1.0",
-  "description": "A simple, light weight, zero dependency, pure javascript plugin used to determine whether an element is within the window viewport.",
+  "version": "3.1.1",
+  "description": "A simple, light weight, zero dependency, pure javascript, typescript ready plugin used to determine whether an element is within the window viewport.",
   "main": "inviewport.min.js",
   "types": "inviewport.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ianrogren/javascript-inViewport.git"
+    "url": "git+https://github.com/ianrogren/javascript-inviewport.git"
   },
   "keywords": [
     "inviewport",
     "viewport",
     "js",
-    "javascript"
+    "javascript",
+    "typescript",
+    "ts"
   ],
   "author": "Ian Rogren",
   "license": "MIT",
