@@ -56,6 +56,8 @@ main {
   position: relative;
 }
 
+header h1,
+header p,
 pre {
   max-width: 64rem;
   margin: 0 auto;
