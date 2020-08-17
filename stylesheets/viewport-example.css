@@ -73,7 +73,8 @@ header > p {
 
 .example-wrapper {
   text-align: center;
-  margin: 6rem 0;
+  margin: 6rem auto;
+  max-width: 64rem;
 }
 
 .example-wrapper h2 {
