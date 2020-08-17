@@ -2,9 +2,7 @@
 
 # inViewport
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e236fa46475a4b20a07be51c43ab57ab)](https://app.codacy.com/manual/ian.rogren/javascript-inViewport?utm_source=github.com&utm_medium=referral&utm_content=ianrogren/javascript-inViewport&utm_campaign=Badge_Grade_Dashboard)
-
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e236fa46475a4b20a07be51c43ab57ab)](https://app.codacy.com/manual/ian.rogren/javascript-inViewport?utm_source=github.com&utm_medium=referral&utm_content=ianrogren/javascript-inViewport&utm_campaign=Badge_Grade_Dashboard) [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 
 A simple to use, light weight, zero dependency, pure javascript plugin used to determine whether an element has entered within the windows viewport.
 
