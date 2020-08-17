@@ -2,7 +2,7 @@
 
 # inViewport
 
-A simple to use, light weight, zero dependency, pure javascript plugin used to determine whether an element has entered within the windows viewport.
+A simple to use, light weight, zero dependency, pure javascript and typescript ready plugin used to determine whether an element has entered within the windows viewport.
 
 See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-inViewport/">here</a>.
 
@@ -24,16 +24,16 @@ yarn add javascript-inviewport
 
 ```javascript
 // Using import
-import inViewport from 'javascript-inviewport';
+import inViewport from "javascript-inviewport";
 
 // Using node require
-const inViewport = require('javascript-inviewport');
+const inViewport = require("javascript-inviewport");
 ```
 
 ## Basic Use
 
 ```javascript
-const element = document.querySelector('...');
+const element = document.querySelector("...");
 
 // Toggle in view and out of view.
 inViewport(element, xValue, yValue, [inViewCallback(), outOfViewCallback()]);
@@ -51,15 +51,15 @@ inViewport(element, xValue, yValue, callback());
  * the first callback is fired. The second callback is fired when less
  * than 175 pixels is visible horizontally or vertically.
  */
-const selectorA = document.getElementById('selector-a');
-inViewport(selectorA, '175px', '175px', [
+const selectorA = document.getElementById("selector-a");
+inViewport(selectorA, "175px", "175px", [
   () => {
-    selectorA.classList.add('visible');
-    console.log('The element is now visible!');
+    selectorA.classList.add("visible");
+    console.log("The element is now visible!");
   },
   () => {
-    selectorA.classList.remove('visible');
-    console.log('The element is now hidden.');
+    selectorA.classList.remove("visible");
+    console.log("The element is now hidden.");
   },
 ]);
 
@@ -68,10 +68,10 @@ inViewport(selectorA, '175px', '175px', [
  * Once 50% is visible horizontally and vertically, the
  * callback is fired.
  */
-const selectorB = document.getElementById('selector-b');
+const selectorB = document.getElementById("selector-b");
 inViewport(selectorB, 0.5, 0.5, () => {
-  selectorB.classList.add('visible');
-  console.log('The element is now visible!');
+  selectorB.classList.add("visible");
+  console.log("The element is now visible!");
 });
 ```
 
@@ -79,14 +79,14 @@ inViewport(selectorB, 0.5, 0.5, () => {
 
 | Settings  | Required | Default Value | Description                                                                                                                                                                                               |
 | --------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HTML node | Required | `null`        | Valid HTML node element to check to see if it's in the viewport of the window.                                                                                                                            |
+| HTML node | Required | `null`        | Valid HTML element to check to see if it's in the viewport of the window.                                                                                                                                 |
 | X-value   | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
 | Y-value   | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
-| Callback  | Required | `null`        | Accepts either a single function or an array of of one function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback        |
+| Callback  | Required | `null`        | Accepts either a single function or an array as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback                           |
 
 ## Licence
 
-```
+```text
 
                         __
                 _,..,_ (, )

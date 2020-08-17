@@ -84,7 +84,7 @@ const inViewport: Function = (
      * big for the viewport.
      */
     if (
-      (visible[sideA] && visible[sideB]) ||
+      (visible[sideA] === true && visible[sideB] === true) ||
       (bounds.top < 0 && bounds.bottom > window.innerHeight) ||
       (bounds.left < 0 && bounds.right > window.innerWidth)
     ) {

@@ -1,35 +1,11 @@
 /** @format */
-:root {
-  --primary-font: 'Muli', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
-  --polar-night-dark: #2e3440;
-  --polar-night-medium: #3b4252;
-  --polar-night-light: #434c5e;
-  --polar-night-lightest: #4c566a;
-
-  --snow-storm-dark: #d8dee9;
-  --snow-storm-medium: #e5e9f0;
-  --snow-storm-light: #eceff4;
-
-  --frost-green: #8fbcbb;
-  --frost-teal: #88c0d0;
-  --frost-blue-gray: #81a1c1;
-  --frost-blue: #5e81ac;
-
-  --aurora-red: #bf616a;
-  --aurora-orange: #d08770;
-  --aurora-yellow: #ebcb8b;
-  --aurora-green: #a3be8c;
-  --aurora-purple: #b48ead;
-}
-
 html {
   font-size: 62.5%;
 }
 
 body {
   background-color: #fff;
-  font-family: 'Muli', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Muli", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #4c566a;
   font-weight: 400;
   font-size: 1.4rem;
@@ -77,6 +53,12 @@ main {
   max-width: 64rem;
   margin: 6rem auto;
   padding: 0 2rem;
+  position: relative;
+}
+
+pre {
+  max-width: 64rem;
+  margin: 0 auto;
   position: relative;
 }
 
