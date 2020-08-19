@@ -91,10 +91,11 @@ header > p {
 }
 
 .example-wrapper.horizontal-notification {
-  position: absolute;
+  /* position: absolute;
   bottom: 10rem;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, 0); */
+  transform: translate(0, -36rem);
 }
 
 .horizontal-scroll-example {
