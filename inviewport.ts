@@ -24,7 +24,7 @@ const inViewport: Function = (
   let isVisible: boolean = false;
   let inView: boolean = false;
   let scrolling: boolean = false;
-  let scrollListener: number | null = null;
+  let scrollListener: any;
   const type: string = isNaN(xValue as any) ? "pixel" : "";
 
   /**
