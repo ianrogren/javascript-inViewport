@@ -8,14 +8,14 @@
 import inViewport from "./inviewport";
 
 document.addEventListener("DOMContentLoaded", (): void => {
-  const verticalScrollContainer: HTMLElement = document.querySelector(
+  const verticalScrollContainer: HTMLElement | null = document.querySelector(
     ".vertical-scroll-example"
   );
 
-  const horizontalScrollContainer: HTMLElement = document.querySelector(
+  const horizontalScrollContainer: HTMLElement | null = document.querySelector(
     ".horizontal-scroll-example"
   );
-  const shrug: HTMLElement = document.querySelector(".shrug");
+  const shrug: HTMLElement | null = document.querySelector(".shrug");
 
   /**
    * Build Verticle Tiles.
