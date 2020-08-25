@@ -15,12 +15,12 @@ interface Boundaries {
 /**
  * inViewport.
  */
-export const inViewport: Function = (
+export default function inViewport(
   node: HTMLElement,
   xValue: string | number,
   yValue: string | number,
   callback: Function | Array<Function>
-): void => {
+): void {
   let isVisible: boolean = false;
   let inView: boolean = false;
   let scrolling: boolean = false;
@@ -192,5 +192,3 @@ export const inViewport: Function = (
   };
   addBoundaryListener();
 };
-
-// export default inViewport;
