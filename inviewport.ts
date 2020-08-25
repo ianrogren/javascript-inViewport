@@ -15,7 +15,7 @@ interface Boundaries {
 /**
  * inViewport.
  */
-const inViewport: Function = (
+export const inViewport: Function = (
   node: HTMLElement,
   xValue: string | number,
   yValue: string | number,
@@ -193,4 +193,4 @@ const inViewport: Function = (
   addBoundaryListener();
 };
 
-export default inViewport;
+// export default inViewport;
