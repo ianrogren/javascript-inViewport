@@ -15,7 +15,7 @@ interface Boundaries {
 /**
  * inViewport.
  */
-export default function inViewport(
+export function inViewport(
   node: HTMLElement,
   xValue: string | number,
   yValue: string | number,
