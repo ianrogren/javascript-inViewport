@@ -1,8 +1,9 @@
+/** @format */
+
 declare function inViewport(
-  node: HTMLElement,
-  xValue: string | number,
-  yValue: string | number,
-  callback: Function | Array<Function>
+  element: HTMLElement,
+  threshold: number,
+  callback: Function | Function[]
 ): void;
 
 export = inViewport;
