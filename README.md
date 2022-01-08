@@ -26,16 +26,16 @@ yarn add javascript-inviewport
 
 ```javascript
 // Using import
-import inViewport from "javascript-inviewport";
+import inViewport from 'javascript-inviewport';
 
 // Using node require
-const inViewport = require("javascript-inviewport");
+const inViewport = require('javascript-inviewport');
 ```
 
 ## Basic Use
 
 ```javascript
-const element = document.querySelector("...");
+const element = document.querySelector('...');
 
 // Toggle in view and out of view.
 inViewport(element, xValue, yValue, [inViewCallback(), outOfViewCallback()]);
@@ -49,39 +49,38 @@ inViewport(element, xValue, yValue, callback());
 ```javascript
 /**
  * Toggle example.
- * Once 175 pixels is visible horizontally and vertically,
- * the first callback is fired. The second callback is fired when less
- * than 175 pixels is visible horizontally or vertically.
+ * The threshold is set to one in this example so once the element
+ * is fully visible the first callback is fired.  The second callback
+ * is then fired if the element is no longer fully visible.
  */
-const selectorA = document.getElementById("selector-a");
-inViewport(selectorA, "175px", "175px", [
+const selectorA = document.getElementById('selector-a');
+inViewport(selectorA, 1, [
   () => {
-    selectorA.classList.add("visible");
-    console.log("The element is now visible!");
+    selectorA.classList.add('visible');
+    console.log('The element is now visible!');
   },
   () => {
-    selectorA.classList.remove("visible");
-    console.log("The element is now hidden.");
+    selectorA.classList.remove('visible');
+    console.log('The element is now hidden.');
   },
 ]);
 
 /**
  * Static example.
- * Once 50% is visible horizontally and vertically, the
- * callback is fired.
+ * The threshold in this example is set to 0.5 so once the element
+ * is 50% visible, the callback is fired.
  */
-const selectorB = document.getElementById("selector-b");
-inViewport(selectorB, 0.5, 0.5, () => {
-  selectorB.classList.add("visible");
-  console.log("The element is now visible!");
+const selectorB = document.getElementById('selector-b');
+inViewport(selectorB, 0.5, () => {
+  selectorB.classList.add('visible');
+  console.log('The element is now visible!');
 });
 ```
 
 ## Custom Options
 
-| Settings  | Required | Default Value | Description                                                                                                                                                                                               |
-| --------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HTML node | Required | `null`        | Valid HTML element to check to see if it's in the viewport of the window.                                                                                                                                 |
-| X-value   | Required | `null`        | The minimum horizontal value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible. |
-| Y-value   | Required | `null`        | The minimum vertical value that must be exposed before returning true. Accepts either a pixel amount as a string works (e.g. '100px') or a number as a percentage, where 0 is 0% and 1 is 100% visible.   |
-| Callback  | Required | `null`        | Accepts either a single function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback                           |
+| Settings  | Required | Default Value | Description                                                                                                                                                         |
+| --------- | -------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| HTML node | Required | `null`        | Valid HTML element to check to see if it's in the viewport of the window.                                                                                           |
+| Threshold | Required | `0.5`         | The minimum amount of the element visible on screen to trigger the callback function. Accepts a value between 0 and 1 where 0 is 0% and 1 is 100%.                  |
+| Callback  | Required | `null`        | Accepts either a single function as a non-toggle callback, or an array of two callback functions, one as an in view callback and another as an out of view callback |

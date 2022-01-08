@@ -64,12 +64,12 @@
         <code class="javascript">
   /**
    * Toggle example.
-   * Once 175 pixels is visible horizontally and vertically, 
-   * the first callback is fired. The second callback is fired when less
-   * than 175 pixels is visible horizontally or vertically.
+   * The threshold is set to one in this example so once the element
+   * is fully visible the first callback is fired.  The second callback
+   * is then fired if the element is no longer fully visible.
    */
   const selectorA = document.getElementById('selector-a');
-  inViewport(selectorA, '175px', '175px',
+  inViewport(selectorA, 1,
     [
       () => { 
         selectorA.classList.add('visible'); 
@@ -84,11 +84,11 @@
 
   /**
    * Static example.
-   * Once 50% is visible horizontally and vertically, the 
-   * callback is fired.
+   * The threshold in this example is set to 0.5 so once the element
+   * is 50% visible, the callback is fired.
    */
   const selectorB = document.getElementById('selector-b');
-  inViewport(selectorB, 0.5, 0.5, () => { 
+  inViewport(selectorB, 0.5, () => { 
     selectorB.classList.add('visible'); 
     console.log('The element is now visible!');
   });
@@ -98,9 +98,7 @@
       <!-- Vertical Example -->
       <div class="example-wrapper">
         <div class="arrow-container">
-          <h2>
-            Scroll down to test.
-          </h2>
+          <h2>Scroll down to test.</h2>
           <p>Toggle Example</p>
           <i class="far fa-arrow-alt-circle-down"></i>
         </div>
@@ -115,9 +113,7 @@
       <!-- Horizontal Notification -->
       <div class="example-wrapper horizontal-notification">
         <div class="arrow-container">
-          <h2>
-            Scroll right to test.
-          </h2>
+          <h2>Scroll right to test.</h2>
           <p>Static example</p>
           <i class="far fa-arrow-alt-circle-right"></i>
         </div>
