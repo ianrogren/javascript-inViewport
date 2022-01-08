@@ -14,7 +14,7 @@ export default function inViewport(
   element: HTMLElement,
   threshold: number,
   callback: Function | Function[]
-) {
+): void {
   if ('IntersectionObserver' in window && element) {
     const config: OberverConfig = {
       root: null,
@@ -52,5 +52,4 @@ export default function inViewport(
       });
     }
   }
-  return null;
 }
