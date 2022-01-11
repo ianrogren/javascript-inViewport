@@ -70,6 +70,9 @@ document.addEventListener("DOMContentLoaded", (): void => {
 
     if (horizontalScrollContainer) {
       buildTiles("horizontal-tile", horizontalScrollContainer);
+      inViewport(horizontalScrollContainer, 0.01, () => {
+        horizontalScrollContainer.classList.add("visible");
+      });
     }
 
     setupShrug();
