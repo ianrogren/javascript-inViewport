@@ -48,6 +48,16 @@ inViewport(element, threshold, [inViewCallback(), outOfViewCallback()]);
 
 // Simple non-toggle load in view
 inViewport(element, threshold, callback());
+
+// Advanced configuration settings
+const advancedConfig = {
+  root: document.querySelector('...'),
+  rootMargin: "10px 20px 30px 40px"
+}
+
+inViewport(
+  element, threshold, [inViewCallback(), outOfViewCallback()], advancedConfig
+);
 ```
 
 ### Examples
