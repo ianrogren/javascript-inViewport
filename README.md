@@ -50,8 +50,9 @@ inViewport(element, threshold, [inViewCallback(), outOfViewCallback()]);
 inViewport(element, threshold, callback());
 
 // Advanced configuration settings
+const customViewportElement = document.querySelector('...');
 const advancedConfig = {
-  root: document.querySelector('...'),
+  root: customViewportElement, 
   rootMargin: "10px 20px 30px 40px"
 }
 
