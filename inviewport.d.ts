@@ -10,7 +10,7 @@ declare function inViewport(
   element: HTMLElement,
   threshold: number | number[],
   callback: Function | Function[],
-  advancedConfiguration: OberverConfig | null
+  advancedConfiguration?: OberverConfig | null
 ): void;
 
 export = inViewport;
