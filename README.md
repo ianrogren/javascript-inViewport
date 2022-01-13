@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 ![Badgen Minzipped](https://badgen.net/bundlephobia/minzip/javascript-inviewport)
 
-A simple to use, light weight (less than 600B), zero dependency, pure JavaScript and TypeScript ready plugin that uses the intersection observer to determine whether an element has entered within the windows viewport.  This plugin is very flexible and performant, ideal to use for things like triggering animations, lazy loading images or adding infinite scroll to your site.  It's framework agnostic and can be used directly with your framework of choice like React, Vue, Svelt, Angular, etc. 
+A simple to use, light weight (~600B), zero dependency, pure JavaScript and TypeScript ready plugin that uses the intersection observer to determine whether an element has entered within the windows viewport.  This plugin is very flexible and performant, ideal to use for things like triggering animations, lazy loading images or adding infinite scroll to your site.  It's framework agnostic and can be used directly with your framework of choice like React, Vue, Svelt, Angular, etc. 
 
 See the inViewport.js in action <a href="http://ianrogren.github.io/javascript-inViewport/">here</a>.
 
