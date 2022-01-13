@@ -16,7 +16,7 @@ export default function inViewport(
   callback: Function | Function[],
   advancedConfiguration: OberverConfig | null = null
 ): void {
-  if ("IntersectionObserver" in window && element) {
+  if ('IntersectionObserver' in window && element) {
     const safeRoot =
       advancedConfiguration && advancedConfiguration.root
         ? advancedConfiguration.root
@@ -24,7 +24,7 @@ export default function inViewport(
     const safeRootMargin =
       advancedConfiguration && advancedConfiguration.rootMargin
         ? advancedConfiguration.rootMargin
-        : "0px";
+        : '0px';
 
     const config: OberverConfig = {
       root: safeRoot,
@@ -53,7 +53,7 @@ export default function inViewport(
         }
 
         if (change.isIntersecting === false) {
-          if (Array.isArray(callback) && typeof callback[1] === "function") {
+          if (Array.isArray(callback) && typeof callback[1] === 'function') {
             callback[1]();
           }
         }
