@@ -4,8 +4,8 @@
  * @format
  */
 
-// import inViewport from './inviewport';
-const inViewport = require('./inviewport').default;
+import inViewport from './inviewport';
+// const inViewport = require('./inviewport').default;
 
 document.addEventListener('DOMContentLoaded', (): void => {
   const verticalScrollContainer: HTMLElement | null = document.querySelector(
