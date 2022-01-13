@@ -32,7 +32,7 @@ yarn add javascript-inviewport
 
 ```javascript
 // Using import
-import inViewport from 'javascript-inviewport';
+import { inViewport } from 'javascript-inviewport';
 
 // Using node require
 const inViewport = require('javascript-inviewport');
