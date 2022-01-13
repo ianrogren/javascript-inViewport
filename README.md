@@ -64,7 +64,7 @@ inViewport(
 ### Examples
 
 #### Toggle example.
-In this example, the threshold is set to `1` in this example so once the element is fully visible the first callback is fired.  The second callback is then fired if the element is no longer fully visible. For this example, the intersection observer continues to observe the element and will toggle functions as long as the user is on the page.
+In this example, the threshold is set to `1` which means first callback will fire once every pixel of the element is visible.  The second callback is then fired once every pixel of the element is no longer visible. For this example, the intersection observer continues to observe the element and will toggle functions as long as the user is on the page.
  
 ```javascript
 
