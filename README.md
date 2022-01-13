@@ -53,7 +53,7 @@ inViewport(element, threshold, callback());
 const customViewportElement = document.querySelector('...');
 const advancedConfig = {
   root: customViewportElement, 
-  rootMargin: "10px 20px 30px 40px"
+  rootMargin: '10px 20px 30px 40px'
 }
 
 inViewport(
