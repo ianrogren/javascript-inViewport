@@ -2,7 +2,7 @@
 
 # inViewport
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/f5bd52dda49a4a40b505c0478cd78773)](https://www.codacy.com/gh/ianrogren/javascript-inViewport/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianrogren/javascript-inViewport&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/12cbd2cd653141fb9e521c2cdbee1f90)](https://www.codacy.com/gh/ianrogren/javascript-inViewport/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ianrogren/javascript-inViewport&amp;utm_campaign=Badge_Grade)
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 ![Badgen Minzipped](https://badgen.net/bundlephobia/minzip/javascript-inviewport)
 
