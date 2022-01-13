@@ -10,7 +10,7 @@ interface OberverConfig {
   threshold?: number | number[];
 }
 
-export function inViewport(
+export default function inViewport(
   element: HTMLElement,
   threshold: number | number[],
   callback: Function | Function[],
